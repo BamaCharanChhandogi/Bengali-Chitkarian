@@ -7,8 +7,27 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Login from './Login';
+import {auth} from '../firebase'
+
 function SignUp() {
   const [isSignInVisible, setIsSignInVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const submitSignUp = (e) => {
+    e.preventDefault();
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        if (auth) {
+          console.log(auth);
+          setEmail("");
+          setPassword("");
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
   return (
     <>
     {!isSignInVisible ? (
@@ -18,7 +37,7 @@ function SignUp() {
       <Typography variant="h4" color="blue-gray">
        Sign Up
      </Typography>
-     <Typography color="gray" className="mt-1 font-normal">
+     <Typography color="gray" className="mt-1 font-normal" type='submit'>
        Nice to meet you! Enter your details to register.
      </Typography>
      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
@@ -30,6 +49,8 @@ function SignUp() {
            size="lg"
            placeholder="name@mail.com"
            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+           required
+           onChange={(e)=>setName(e.target.value)}
            labelProps={{
              className: "before:content-none after:content-none",
            }}
@@ -41,6 +62,8 @@ function SignUp() {
            size="lg"
            placeholder="name@mail.com"
            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+           required
+           onChange={(e)=>setEmail(e.target.value)}
            labelProps={{
              className: "before:content-none after:content-none",
            }}
@@ -53,12 +76,15 @@ function SignUp() {
            size="lg"
            placeholder="********"
            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+           required
+           onChange={(e)=>setPassword(e.target.value)}
            labelProps={{
              className: "before:content-none after:content-none",
            }}
          />
        </div>
        <Checkbox
+       required
          label={
            <Typography
              variant="small"
@@ -76,7 +102,7 @@ function SignUp() {
          }
          containerProps={{ className: "-ml-2.5" }}
        />
-       <Button className="mt-6" fullWidth>
+       <Button className="mt-6" fullWidth onClick={submitSignUp}>
          sign up
        </Button>
        <Typography color="gray" className="mt-4 text-center font-normal">
@@ -92,5 +118,4 @@ function SignUp() {
     </>
  );
 }
-
 export default SignUp;

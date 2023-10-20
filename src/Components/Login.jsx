@@ -7,8 +7,25 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import SignUp from './SignUp';
+import { auth } from '../firebase';
 function Login() {
     const [isSignUp, setIsSignUpVisible] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const login = (e) => {
+      e.preventDefault();
+      auth.signInWithEmailAndPassword(email, password)
+        .then((auth)=>{
+          if(auth){
+            console.log(auth);
+            setEmail("");
+            setPassword("");
+          }
+        })
+        .catch((err)=>{
+          alert(err);
+        });
+    }
   return (
     <>
      {!isSignUp ? (
@@ -30,6 +47,8 @@ function Login() {
            size="lg"
            placeholder="name@mail.com"
            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+           required
+           onChange={(e)=>setEmail(e.target.value)}
            labelProps={{
              className: "before:content-none after:content-none",
            }}
@@ -42,6 +61,8 @@ function Login() {
            size="lg"
            placeholder="********"
            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+           required
+           onChange={(e)=>setPassword(e.target.value)}
            labelProps={{
              className: "before:content-none after:content-none",
            }}
@@ -65,8 +86,8 @@ function Login() {
          }
          containerProps={{ className: "-ml-2.5" }}
        />
-       <Button className="mt-6" fullWidth>
-         sign up
+       <Button className="mt-6" fullWidth onClick={login}>
+         sign In
        </Button>
        <Typography color="gray" className="mt-4 text-center font-normal">
          Don't have account?{" "}
