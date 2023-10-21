@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import db, { auth } from '../firebase'
-import { Button } from '@material-tailwind/react'
 import  Navbar  from './Navbar'
 import UserFeed from './UserFeed';
 
@@ -31,7 +30,7 @@ function Main() {
       userFeed.map((user) => {
         const { id, data } = user;
         if (id === auth.currentUser.uid) {
-          return <Navbar profileImg={data.profilePicture} key={id} />;
+          return <Navbar firstName={data.firstName} profileImg={data.profilePicture} key={id} />;
         }
       })      
     }
