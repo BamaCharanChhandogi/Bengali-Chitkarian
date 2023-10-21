@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import db, { auth } from '../firebase'
 import { Button } from '@material-tailwind/react'
 import  Navbar  from './Navbar'
+import UserFeed from './UserFeed';
 
 function Main() {
   const [userFeed,setUserFeed] = useState([]);
@@ -34,6 +35,7 @@ function Main() {
         }
       })      
     }
+    <UserFeed data={userFeed}/>
     </div>
   )
 }

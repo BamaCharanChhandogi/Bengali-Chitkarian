@@ -7,7 +7,7 @@ import {
 import { auth } from '../firebase';
 const Navbar = (props) => {
   return (
-    <nav className="bg-blue-500 p-4">
+    <nav className="bg-pink-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white text-2xl font-bold">Bengali-Chitkarian</div>
         <div className="relative flex w-full gap-2 md:w-max">
