@@ -13,7 +13,7 @@ const Navbar = (props) => {
         <div>
         <Link to="/" className="text-white text-2xl font-bold">Bengali-Chitkarian</Link>
         </div>
-        <div className="flex items-center">
+        <div className="hidden sm:flex items-center">
         <div className="flex space-x-1">
                 <input
                     type="text"
@@ -40,18 +40,19 @@ const Navbar = (props) => {
             </div>
         </div>
         <div className='flex items-center space-x-3'>
-        <ul className="flex space-x-4">
+        <ul className="hidden sm:flex space-x-4 text-white text-xl font-bold sm:text-2xl ">
           <li>
-          <Link to="/" className="text-white hover:text-blue-200 text-xl font-bold">Home</Link>
+          <Link to="/" className="text-white hover:text-gray-900 text-xl font-bold">Home</Link>
           </li>
           <li>
-          <Link to="/about" className="text-white hover:text-blue-200 text-xl font-bold">About</Link>
+          <Link to="/about" className="text-white hover:text-gray-900 text-xl font-bold">About</Link>
           </li>
           <li>
-            <Link to="/Contact" className="text-white hover:text-blue-200 text-xl font-bold">Contact</Link> 
+            <Link to="/contact" className="text-white hover:text-gray-900 text-xl font-bold">Contact</Link> 
           </li>
           </ul>
-          <div>
+          <div className='hidden sm:block sm:w-9'>
+        <Link to="/profile">
         <Avatar
             variant="circular"
             size="sm"
@@ -59,6 +60,7 @@ const Navbar = (props) => {
             className="border border-gray-900 p-0.5"
             src={props.profileImg}
           />
+        </Link>
         </div>
         <div onClick={()=>{auth.signOut()}} className='logout-btn'>
             <Button>Log Out</Button>

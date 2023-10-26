@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import db, { auth } from '../firebase'
 import  Navbar  from './Navbar'
 import UserFeed from './UserFeed';
+import { Route, BrowserRouter as  Router, Routes } from 'react-router-dom';
+import UserDetails from './UserDetails';
+import ProfileSettings from './ProfileSettings';
+import About from './About';
+import Contact from './Contact';
 
 function Main() {
   const [userFeed,setUserFeed] = useState([]);
@@ -24,17 +29,19 @@ function Main() {
       fetchUserData();
     };
   }, []);
+  const currentUser = userFeed.find(user => user.id === auth.currentUser.uid)
   return (
     <div className='Main'>
-    {
-      userFeed.map((user) => {
-        const { id, data } = user;
-        if (id === auth.currentUser.uid) {
-          return <Navbar firstName={data.firstName} profileImg={data.profilePicture} key={id} />;
-        }
-      })      
-    }
-    <UserFeed data={userFeed}/>
+      <Router>
+        <Navbar firstName={currentUser?.data.firstName} profileImg={currentUser?.data.profilePicture} />
+      <Routes>
+        <Route path="/" element={<UserFeed data={userFeed}/>}/>
+        <Route path="/user/:id" element={<UserDetails/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/profile" element={<ProfileSettings id={auth.currentUser.uid}/>} />
+      </Routes>
+    </Router>
     </div>
   )
 }

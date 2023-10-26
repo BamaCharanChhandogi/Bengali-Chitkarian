@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/counter/userSlice';
 import Main from './Components/Main';
 import { auth } from './firebase';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const user  = useSelector(selectUser);
@@ -25,11 +24,14 @@ function App() {
   },[dispatch]);
   return (
     <div className='App'>
-      <Router>
+      {user ? <Main /> : <Login />}
+      {/* <Router>
       <Routes>
         <Route path="/" element={user ? <Main /> : <Login />}/>
+        <Route path="/user/:id" element={<UserDetails/>} />
+        <Route path="/profile" element={<ProfileSettings/>} />
       </Routes>
-    </Router>
+    </Router> */}
     </div>
   );
 }

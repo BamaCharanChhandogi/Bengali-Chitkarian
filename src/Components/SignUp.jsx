@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
-import Login from "./Login";
 import db, { auth, storage } from "../firebase";
-
+import Login from "./Login";
 function SignUp() {
   const [isSignInVisible, setIsSignInVisible] = useState(false);
   const [email, setEmail] = useState("");
@@ -17,6 +10,7 @@ function SignUp() {
   const [gender, setGender] = useState("");
   const [district, setDistrict] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+
   const submitSignUp = (e) => {
     e.preventDefault();
     auth
@@ -48,54 +42,42 @@ function SignUp() {
         alert(err);
       });
   };
-  // Profile pic handle function
-  const handleProfilePictureChange = (e)=>{
+
+  const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
     setProfilePicture(file);
   };
+
   return (
     <>
       {!isSignInVisible ? (
         <>
           <div className="flex justify-center w-full align-center">
             <div className="Card mt-2 w-max">
-              <Typography variant="h5" color="blue-gray" className="text-center">
+              <h1 className="text-3xl font-bold text-center text-blue-gray-800">
                 Sign Up
-              </Typography>
-              <Typography
-                color="gray"
-                className="mt-1 font-normal text-center"
-                type="submit"
-              >
-                Nice to meet you! Enter your details to see your bengali friends.
-              </Typography>
-              {/* Name Input */}
+              </h1>
+              <p className="text-center text-gray-500">
+                Nice to meet you! Enter your details to connect with your Bengali friends.
+              </p>
               <form className="mt-5 mb-2 w-max">
                 <div className="flex gap-6">
                   <div className="mb-1 flex flex-col gap-6 w-72">
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your Name
-                    </Typography>
-                    <Input
-                      label="First Name"
-                      className="w-70"
+                    </h2>
+                    <input
+                      type="text"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      placeholder="First Name"
                       required
                       onChange={(e) => setFirstName(e.target.value)}
                     />
-                    {/* Gender Input */}
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your Gender
-                    </Typography>
+                    </h2>
                     <select
-                      className="border-t-blue-gray-200 focus:border-t-gray-900  rounded-lg"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                       onChange={(e) => setGender(e.target.value)}
                     >
                       <option value="">Select your gender</option>
@@ -103,77 +85,52 @@ function SignUp() {
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>
-                    {/* Email Input */}
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your Email
-                    </Typography>
-                    <Input
-                      label="name@email.com"
-                      className="w-70"
+                    </h2>
+                    <input
+                      type="email"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      placeholder="name@email.com"
                       required
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    {/* password Input */}
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Password
-                    </Typography>
-                    <Input
+                    </h2>
+                    <input
                       type="password"
-                      label="********"
-                      className="w-70"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      placeholder="********"
                       required
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <div className="flex flex-col gap-6 w-70">
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                  <div className="flex flex-col gap-6 w-72">
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Last Name
-                    </Typography>
-                    <Input
-                      // placeholder="last name"
-                      label="last name"
-                      className="w-70"
+                    </h2>
+                    <input
+                      type="text"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      placeholder="Last Name"
                       required
                       onChange={(e) => setLastName(e.target.value)}
                     />
-                    {/* State Input */}
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
-                     Your State
-                    </Typography>
-                    <Input
-                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900 focus:border-0 placeholder:border-0"
-                    readOnly
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                     value={"West Bengal"}/>
-                     
-                    {/* District Input */}
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="-mb-3"
-                    >
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                      Your State
+                    </h2>
+                    <input
+                      type="text"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      value="West Bengal"
+                      readOnly
+                    />
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your District
-                    </Typography>
+                    </h2>
                     <select
-                      className="border-t-blue-gray-200 focus:border-t-gray-900 rounded-lg"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                       onChange={(e) => setDistrict(e.target.value)}
                     >
                       <option value="">Select your district</option>
@@ -205,66 +162,60 @@ function SignUp() {
                         South 24 Parganas
                       </option>
                       <option value="Uttar Dinajpur">Uttar Dinajpur</option>
+                      {/* Add more district options here */}
                     </select>
-                    {/* pic Input */}
-                    <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Profile Picture
-                  </Typography>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleProfilePictureChange}
-                  />
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                      Profile Picture
+                    </h2>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProfilePictureChange}
+                    />
                   </div>
                 </div>
-                {/* CheckBox  */}
-                <Checkbox
-                  required
-                  label={
-                    <Typography
-                      variant="small"
-                      color="gray"
-                      className="flex items-center font-normal"
+                <div>
+                  <input
+                    type="checkbox"
+                    className="mr-2"
+                    required
+                  />
+                  <label htmlFor="agreeTerms" className="text-gray-500">
+                    I agree to the
+                    <a
+                      href="#"
+                      className="text-blue-gray-800 hover:text-gray-900 font-semibold"
                     >
-                      I agree to the
-                      <a
-                        href="#"
-                        className="font-medium transition-colors hover:text-gray-900"
-                      >
-                        &nbsp;Terms and Conditions
-                      </a>
-                    </Typography>
-                  }
-                  containerProps={{
-                    className: "-ml-2.5",
-                  }}
-                  errorMessage="You must agree to the Terms and Conditions."
-                />
-
-                <Button className="mt-6" fullWidth onClick={submitSignUp}>
-                  sign up
-                </Button>
-                <Typography
-                  color="gray"
-                  className="mt-4 text-center font-normal"
+                      &nbsp;Terms and Conditions
+                    </a>
+                  </label>
+                </div>
+                <button
+                  className="w-72 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  onClick={submitSignUp}
                 >
+                  Sign Up
+                </button>
+                <p className="mt-4 text-center text-gray-500">
                   Already have an account?{" "}
                   <a
                     href="#"
-                    className="font-medium text-gray-900"
+                    className="text-blue-gray-800 font-semibold"
                     onClick={() => setIsSignInVisible(true)}
                   >
                     Sign In
                   </a>
-                </Typography>
+                </p>
               </form>
             </div>
           </div>
         </>
       ) : (
-        <Login />
+        // Render your login component here
+        <Login/>
       )}
     </>
   );
 }
+
 export default SignUp;
