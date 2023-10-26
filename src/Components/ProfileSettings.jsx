@@ -18,8 +18,7 @@ function ProfileSettings(props) {
   }
   return (
     <div className='mx-auto max-w-screen-md'>
-      <Button className='my-5 mx-5' onClick={deleteUser}>Delete Your Account</Button>
-      {/* <h2>Settings{props.id}</h2> */}
+      <Button className='my-5 mx-5 px-2' onClick={deleteUser}>Delete Your Account</Button>
     </div>
   )
 }

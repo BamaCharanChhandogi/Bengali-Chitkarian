@@ -57,13 +57,13 @@ const Navbar = (props) => {
             variant="circular"
             size="sm"
             alt="tania andrew"
-            className="border border-gray-900 p-0.5"
+            className="border border-gray-900 p-0.5 rounded-full"
             src={props.profileImg}
           />
         </Link>
         </div>
         <div onClick={()=>{auth.signOut()}} className='logout-btn'>
-            <Button>Log Out</Button>
+            <Button className='p-3 text-sm'>Log Out</Button>
             </div>
         </div>
       </div>
