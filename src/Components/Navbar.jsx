@@ -16,6 +16,7 @@ const Navbar = (props) => {
         <div className="hidden sm:flex items-center">
         <div className="flex space-x-1">
                 <input
+                value={query}
                     type="text"
                     className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Search..."

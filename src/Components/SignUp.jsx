@@ -191,7 +191,7 @@ function SignUp() {
                   </label>
                 </div>
                 <button
-                  className="w-full py-3 m-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  className="w-full py-3 m-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
                   onClick={submitSignUp}
                 >
                   Sign Up

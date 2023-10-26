@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 import UserFeedData from "./UserFeedData";
 function UserFeed(props) {
   return (

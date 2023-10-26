@@ -54,7 +54,7 @@ function Login() {
                                 <input type="checkbox" className="mr-2" />
                                 <span className="text-gray font-normal">I agree the <a href="#" className="font-medium text-blue-gray hover:text-gray-900">Terms and Conditions</a></span>
                             </label>
-                            <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" onClick={login}>Sign In</button>
+                            <button className="w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600" onClick={login}>Sign In</button>
                             <p className="mt-4 text-gray text-center font-normal">Don't have an account? <a href='#' className="font-medium text-gray-900" onClick={() => setIsSignUpVisible(true)}>Sign Up</a></p>
                         </form>
                     </div>
