@@ -25,15 +25,7 @@ function App() {
   return (
     <div className='App'>
       {user ? <Main /> : <Login />}
-      {/* <Router>
-      <Routes>
-        <Route path="/" element={user ? <Main /> : <Login />}/>
-        <Route path="/user/:id" element={<UserDetails/>} />
-        <Route path="/profile" element={<ProfileSettings/>} />
-      </Routes>
-    </Router> */}
     </div>
   );
 }
-
 export default App;
