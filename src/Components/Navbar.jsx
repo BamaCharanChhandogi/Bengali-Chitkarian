@@ -63,7 +63,7 @@ const Navbar = (props) => {
         </Link>
         </div>
         <div onClick={()=>{auth.signOut()}} className='logout-btn'>
-            <Button className='p-3 text-sm'>Log Out</Button>
+            <Button className='p-2 text-sm'>Log Out</Button>
             </div>
         </div>
       </div>
