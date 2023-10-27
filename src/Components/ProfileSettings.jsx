@@ -1,63 +1,147 @@
-import React, { useEffect, useState } from 'react'
-import db, { auth } from '../firebase'
+import React, { useEffect, useState } from 'react';
+import db, { auth } from '../firebase';
 import { Button } from '@material-tailwind/react';
+
 function ProfileSettings(props) {
   const [userData, setUserData] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editedUserData, setEditedUserData] = useState({}); // Store edited data
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        db.collection('users').doc(props.id).get().then((doc) => {
-          if (doc.exists) {
-            console.log("Document data:", doc.data());
-            setUserData(doc.data());
-          } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-        });
-        // You can set this data in your state or perform any other operations
+        db.collection('users')
+          .doc(props.id)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              console.log("Document data:", doc.data());
+              setUserData(doc.data());
+            } else {
+              console.log("No such document!");
+            }
+          });
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-    return () => {
-      fetchUserData();
-    };
-  }, []);
-  const deleteUser = () =>{
-    db.collection('users').doc(props.id).delete().then(() => {
-      console.log("Document successfully deleted!");
-      auth.signOut();
-      auth.currentUser.delete().then(() => {
-        console.log("User successfully deleted!");
+    fetchUserData();
+  }, [props.id]);
+
+  const deleteUser = () => {
+    db.collection('users')
+      .doc(props.id)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+        auth.signOut();
+        auth.currentUser.delete().then(() => {
+          console.log("User successfully deleted!");
+        });
       })
-      // history.push('/login');
-    })
-    .catch((error) => {
-      console.error("Error removing document: ", error);
-    });
-  }
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
+  const handleEdit = () => {
+    // Enable edit mode and populate editedUserData with the current data
+    setEditMode(true);
+    setEditedUserData(userData);
+  };
+
+  const handleSave = () => {
+    // Update the user data in Firebase with editedUserData
+    db.collection('users')
+      .doc(props.id)
+      .update(editedUserData)
+      .then(() => {
+        console.log("Document successfully updated!");
+        setUserData(editedUserData); // Update the displayed data
+        setEditMode(false); // Switch back to view mode
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedUserData({ ...editedUserData, [name]: value });
+  };
+
   return (
     <div className='mx-2 my-2 bg-gray-900 p-4 md:p-8 lg:p-6 rounded'>
-    <div>
-      {userData && (
-        <div>
-          <div className='flex flex-col gap-y-1 items-center justify-center'>
-            <img className='rounded-full w-32 h-32' src={userData.profilePicture} alt={userData.firstName} />
-            <h1 className='text-2xl text-white'>Name: {userData.firstName} {userData.lastName}</h1>
-            <h2 className='text-xl text-white'>email: {userData.email}</h2>
-            {/* <h3 className='text-xl text-white'>Gender: {userData.bio}</h3> */}
-            <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
-            <h3 className='text-xl text-white'>District: {userData.district}</h3>
+      <div>
+        {userData && !editMode && (
+          <div>
+            <div className='flex flex-col gap-y-1 items-center justify-center'>
+              <img
+                className='rounded-full w-32 h-32'
+                src={userData.profilePicture}
+                alt={userData.firstName}
+              />
+              <h1 className='text-2xl text-white'>Name: {userData.firstName} {userData.lastName}</h1>
+              <h2 className='text-xl text-white'>email: {userData.email}</h2>
+              <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
+              <h3 className='text-xl text-white'>District: {userData.district}</h3>
+            </div>
+            <Button className='my-5 mx-5 px-2 bg-pink-700' onClick={deleteUser}>
+              Delete Your Account
+            </Button>
+            <Button className='my-5 mx-5 px-2 bg-blue-700' onClick={handleEdit}>
+              Edit Profile
+            </Button>
           </div>
-        </div>
-      )}
+        )}
+
+        {editMode && (
+          <div>
+            <div className='flex flex-col gap-y-1 items-center justify-center'>
+              <img
+                className='rounded-full w-32 h-32'
+                src={editedUserData.profilePicture}
+                alt={editedUserData.firstName}
+              />
+              <input
+                type='text'
+                name='firstName'
+                value={editedUserData.firstName}
+                onChange={handleInputChange}
+              />
+              <input
+                type='text'
+                name='lastName'
+                value={editedUserData.lastName}
+                onChange={handleInputChange}
+              />
+              <input
+                type='text'
+                name='email'
+                value={editedUserData.email}
+                onChange={handleInputChange}
+              />
+              <input
+                type='text'
+                name='gender'
+                value={editedUserData.gender}
+                onChange={handleInputChange}
+              />
+              <input
+                type='text'
+                name='district'
+                value={editedUserData.district}
+                onChange={handleInputChange}
+              />
+            </div>
+            <Button className='my-5 mx-5 px-2 bg-green-700' onClick={handleSave}>
+              Save Profile
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
-    <Button className='my-5 mx-5 px-2 bg-pink-700' onClick={deleteUser}>
-      Delete Your Account
-    </Button>
-  </div>
-  )
+  );
 }
 
-export default ProfileSettings
+export default ProfileSettings;
