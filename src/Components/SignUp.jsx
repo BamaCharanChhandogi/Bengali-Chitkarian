@@ -57,11 +57,11 @@ function SignUp() {
               <h1 className="text-3xl font-bold text-center text-blue-gray-800">
                 Sign Up
               </h1>
-              <p className="text-center text-gray-500">
+              <p className="text-center text-gray-500 p-1 md:p-0">
                 Nice to meet you! Enter your details to connect with your Bengali friends.
               </p>
-              <form className="mt-5 mb-2 w-max">
-                <div className="flex gap-6">
+              <form className="mt-5 mb-2 w-max mx-auto">
+                <div className="flex flex-col gap-6 md:flex-row">
                   <div className="mb-1 flex flex-col gap-6 w-72">
                     <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your Name
@@ -174,7 +174,7 @@ function SignUp() {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="my-3 md:m-0">
                   <input
                     type="checkbox"
                     className="mr-2"

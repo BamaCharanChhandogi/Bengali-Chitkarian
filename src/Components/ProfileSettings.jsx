@@ -74,11 +74,11 @@ function ProfileSettings(props) {
     <div className='mx-2 my-2 bg-gray-900 p-4 md:p-8 lg:p-6 rounded'>
       <div>
         {userData && !editMode && (
-          <div>
+          <div className='flex flex-col gap-y-2 items-center sm:block'>
             <div>
-              <h1 className='text-3xl text-white'> নমস্কার, {userData.firstName}</h1>
+              <h1 className='text-2xl text-white sm:text-3xl'> নমস্কার, {userData.firstName}</h1>
             </div>
-            <div className='flex flex-col gap-y-1 items-center justify-center'>
+            <div className='flex flex-col gap-y-1 items-center justify-center text-center'>
               <img
                 className='rounded-full w-32 h-32'
                 src={userData.profilePicture}
@@ -89,10 +89,10 @@ function ProfileSettings(props) {
               <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
               <h3 className='text-xl text-white'>District: {userData.district}</h3>
             </div>
-            <Button className='my-5 mx-5 px-2 bg-pink-700' onClick={deleteUser}>
+            <Button className='my-5 mx-5 px-2 max-w-sm bg-pink-700' onClick={deleteUser}>
               Delete Your Account
             </Button>
-            <Button className='my-5 mx-5 px-2 bg-blue-700' onClick={handleEdit}>
+            <Button className='my-5 mx-5 px-2 max-w-sm bg-blue-700' onClick={handleEdit}>
               Edit Profile
             </Button>
           </div>
