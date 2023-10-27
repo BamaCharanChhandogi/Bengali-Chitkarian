@@ -25,18 +25,21 @@
     }, [id]);
 
     return (
-      <div className='container mx-auto p-4'>
+      <div className='mx-2 my-2 bg-gray-900 p-4 md:p-8 lg:p-6 rounded'>
         {userData ? (
-          <div className='flex flex-col items-center '>
-            <img src={userData.profilePicture} alt={userData.firstName} 
-            className="w-44 h-44  sm:w-52 sm:h-52 md:w-72 md:h-72 rounded mx-auto object-cover"
-            />
-            <h2 className='text-2xl sm:test-3xl md:text-4xl font-bold mt-4'>{userData.firstName}</h2>
-            {/* Display other user details as needed */}
-            <h2 className='text-lg sm:text-xl md:text-2xl mt-2'>{userData.district}</h2>
-          </div>
+          <div className='flex flex-col gap-y-1 items-center justify-center'>
+              <img
+                className='rounded-full w-32 h-32'
+                src={userData.profilePicture}
+                alt={userData.firstName}
+              />
+              <h1 className='text-2xl text-white'>Name: {userData.firstName} {userData.lastName}</h1>
+              <h2 className='text-xl text-white'>email: {userData.email}</h2>
+              <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
+              <h3 className='text-xl text-white'>District: {userData.district}</h3>
+            </div>
         ) : (
-          <p>Loading user data...</p>
+          <p className='text-3xl my-8 text-center font-bold text-white'>Loading user data...</p>
         )}
       </div>
     );
