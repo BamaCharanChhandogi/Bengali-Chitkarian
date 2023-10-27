@@ -28,7 +28,7 @@ function Main() {
     return () => {
       fetchUserData();
     };
-  }, []);
+  }, [userFeed]);
   const currentUser = userFeed.find(user => user.id === auth.currentUser.uid)
   return (
     <div className='Main'>
