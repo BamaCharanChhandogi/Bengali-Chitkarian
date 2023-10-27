@@ -75,6 +75,9 @@ function ProfileSettings(props) {
       <div>
         {userData && !editMode && (
           <div>
+            <div>
+              <h1 className='text-3xl text-white'> নমস্কার, {userData.firstName}</h1>
+            </div>
             <div className='flex flex-col gap-y-1 items-center justify-center'>
               <img
                 className='rounded-full w-32 h-32'
@@ -107,29 +110,34 @@ function ProfileSettings(props) {
                 type='text'
                 name='firstName'
                 value={editedUserData.firstName}
+                className='p-1 rounded'
                 onChange={handleInputChange}
               />
               <input
                 type='text'
                 name='lastName'
+                className='p-1 rounded'
                 value={editedUserData.lastName}
                 onChange={handleInputChange}
               />
               <input
                 type='text'
                 name='email'
+                className='p-1 rounded'
                 value={editedUserData.email}
                 onChange={handleInputChange}
               />
               <input
                 type='text'
                 name='gender'
+                className='p-1 rounded'
                 value={editedUserData.gender}
                 onChange={handleInputChange}
               />
               <input
                 type='text'
                 name='district'
+                className='p-1 rounded'
                 value={editedUserData.district}
                 onChange={handleInputChange}
               />
