@@ -25,10 +25,12 @@ function Main() {
         console.error("Error fetching user data:", error);
       }
     };
-    return () => {
-      fetchUserData();
-    };
-  }, [userFeed]);
+  
+    // Call fetchUserData when the component mounts
+    fetchUserData();
+  
+    // No need to return anything here, useEffect doesn't expect a return value
+  }, []);  
   const currentUser = userFeed.find(user => user.id === auth.currentUser.uid)
   return (
     <div className='Main'>
