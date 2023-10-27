@@ -182,12 +182,11 @@ function SignUp() {
                   />
                   <label htmlFor="agreeTerms" className="text-gray-500">
                     I agree to the
-                    <a
-                      href="#"
+                    <button
                       className="text-blue-gray-800 hover:text-gray-900 font-semibold"
                     >
                       &nbsp;Terms and Conditions
-                    </a>
+                    </button>
                   </label>
                 </div>
                 <button
@@ -198,13 +197,12 @@ function SignUp() {
                 </button>
                 <p className="mt-4 text-center text-gray-500">
                   Already have an account?{" "}
-                  <a
-                    href="#"
-                    className="text-blue-gray-800 font-semibold"
+                  <button
+                    className="text-blue-gray-800 font-semibold cursor-pointer"
                     onClick={() => setIsSignInVisible(true)}
                   >
                     Sign In
-                  </a>
+                  </button>
                 </p>
               </form>
             </div>
