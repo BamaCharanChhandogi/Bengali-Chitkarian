@@ -52,19 +52,19 @@ const Navbar = (props) => {
             <Link to="/contact" className="text-white hover:text-gray-900 text-xl font-bold">Contact</Link> 
           </li>
           </ul>
-          <div className='hidden sm:block sm:w-9'>
+          <div className='hidden sm:block'>
         <Link to="/profile">
         <Avatar
             variant="circular"
             size="sm"
             alt="tania andrew"
-            className="border border-gray-900 p-0.5 rounded-full"
+            className="border border-gray-900 p-0.5 rounded-full w-10 h-10"
             src={props.profileImg}
           />
         </Link>
         </div>
         <div onClick={()=>{auth.signOut()}} className='logout-btn'>
-            <Button className='p-2 text-sm'>Log Out</Button>
+            <Button className='p-2 text-sm'>LogOut</Button>
             </div>
         </div>
       </div>
