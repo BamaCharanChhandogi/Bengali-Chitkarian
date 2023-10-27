@@ -1,6 +1,9 @@
 import React from "react";
 import UserFeedData from "./UserFeedData";
 function UserFeed(props) {
+  if(props.data.length === 0) {
+    return <p className="text-3xl my-8 text-center font-bold">Loading...</p>
+  }
   return (
     <div className="container mx-auto mt-3">
       <h2 className="text-center my-2 p-1 text-xl sm:text-2xl font-bold">Top Bengali Profiles</h2>
