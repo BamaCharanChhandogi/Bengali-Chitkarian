@@ -5,8 +5,11 @@ import {
   } from "@material-tailwind/react";
 import { auth } from '../firebase';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 const Navbar = (props) => {
   const [query,setQuery] = useState('');
+  const location = useLocation();
   return (
     <nav className="bg-pink-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -43,13 +46,13 @@ const Navbar = (props) => {
         <div className='flex items-center space-x-3'>
         <ul className="hidden sm:flex space-x-4 text-white text-xl font-bold sm:text-2xl ">
           <li>
-          <Link to="/" className="text-white hover:text-gray-900 text-xl font-bold">Home</Link>
+          <Link to="/" className={`text-white hover:text-gray-900 text-xl font-bold ${location.pathname === '/' ? 'text-black' : ''}`}>Home</Link>
           </li>
           <li>
-          <Link to="/about" className="text-white hover:text-gray-900 text-xl font-bold">About</Link>
+          <Link to="/about" className={`text-white hover:text-gray-900 text-xl font-bold ${location.pathname === '/about' ? 'text-black' : ''}`}>About</Link>
           </li>
           <li>
-            <Link to="/contact" className="text-white hover:text-gray-900 text-xl font-bold">Contact</Link> 
+          <Link to="/contact" className={`text-white hover:text-gray-900 text-xl font-bold ${location.pathname === '/contact' ? 'text-black' : ''}`}>Contact</Link> 
           </li>
           </ul>
           <div className='hidden sm:block'>

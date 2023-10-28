@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import db, { auth } from '../firebase';
+import db, { auth, storage } from '../firebase';
 import { Button } from '@material-tailwind/react';
 
 function ProfileSettings(props) {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserData, setEditedUserData] = useState({}); // Store edited data
+  const [imgFile, setImgFile] = useState(null); // Store update image
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -51,19 +52,61 @@ function ProfileSettings(props) {
   };
 
   const handleSave = () => {
-    // Update the user data in Firebase with editedUserData
-    db.collection('users')
-      .doc(props.id)
-      .update(editedUserData)
-      .then(() => {
-        console.log("Document successfully updated!");
-        setUserData(editedUserData); // Update the displayed data
-        setEditMode(false); // Switch back to view mode
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
+    // Create a storage reference for the user's profile picture
+    const storageRef = storage.ref();
+    const imageRef = storageRef.child(`updateProfileImages/${props.id}`);
+  
+    // Check if a new image file has been selected
+    if (imgFile) {
+      // Upload the new image to Firebase Storage
+      imageRef.put(imgFile).then((snapshot) => {
+        // Get the download URL of the newly uploaded image
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+          // Update the editedUserData with the new profile picture URL
+          const updatedUserData = { ...editedUserData, profilePicture: downloadURL };
+          setEditedUserData(updatedUserData);
+          setImgFile(null); // Reset the image file state
+  
+          // Create a Promise to ensure the download URL is obtained
+          const downloadURLPromise = new Promise((resolve, reject) => {
+            snapshot.ref.getDownloadURL().then((downloadURL) => {
+              resolve(downloadURL);
+            });
+          });
+  
+          // Wait for the download URL Promise to resolve
+          downloadURLPromise.then((downloadURL) => {
+            // Update the user data in Firebase with the updatedUserData
+            db.collection('users')
+              .doc(props.id)
+              .update(updatedUserData)
+              .then(() => {
+                console.log("Document successfully updated!");
+                setUserData(updatedUserData); // Update the displayed data
+                setEditMode(false); // Switch back to view mode
+                window.location.reload();
+              })
+              .catch((error) => {
+                console.error("Error updating document: ", error);
+              });
+          });
+        });
       });
-  };
+    } else {
+      // If no new image file has been selected, update only the text data
+      db.collection('users')
+        .doc(props.id)
+        .update(editedUserData)
+        .then(() => {
+          console.log("Document successfully updated!");
+          setUserData(editedUserData); // Update the displayed data
+          setEditMode(false); // Switch back to view mode
+        })
+        .catch((error) => {
+          console.error("Error updating document: ", error);
+        });
+    }
+  };  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -101,11 +144,18 @@ function ProfileSettings(props) {
         {editMode && (
           <div>
             <div className='flex flex-col gap-y-1 items-center justify-center'>
+              <div className='flex gap-x-2 justify-center items-center'>
               <img
                 className='rounded-full w-32 h-32'
-                src={editedUserData.profilePicture}
+                src={ imgFile ? URL.createObjectURL(imgFile):editedUserData.profilePicture}
                 alt={editedUserData.firstName}
               />
+              <input type="file"
+              accept='image/*'
+              onChange={(e) => setImgFile(e.target.files[0])}
+              className='bg-white rounded p-2'
+               />
+              </div>
               <input
                 type='text'
                 name='firstName'
