@@ -157,6 +157,7 @@ function SignUp() {
                       </option>
                       <option value="Purba Bardhaman">Purba Bardhaman</option>
                       <option value="Purba Medinipur">Purba Medinipur</option>
+                      <option value="Purba Medinipur">Paschim Medinipur</option>
                       <option value="Purulia">Purulia</option>
                       <option value="South 24 Parganas">
                         South 24 Parganas
