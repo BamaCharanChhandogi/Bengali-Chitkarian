@@ -5,8 +5,8 @@ import { Button } from "@material-tailwind/react";
 function ProfileSettings(props) {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [editedUserData, setEditedUserData] = useState({}); // Store edited data
-  const [imgFile, setImgFile] = useState(null); // Store update image
+  const [editedUserData, setEditedUserData] = useState({});
+  const [imgFile, setImgFile] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
