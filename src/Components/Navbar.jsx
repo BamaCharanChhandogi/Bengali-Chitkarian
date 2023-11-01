@@ -11,7 +11,7 @@ const Navbar = (props) => {
     <nav className="bg-pink-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div>
-          <Link to="/" className="text-white text-2xl font-bold">
+          <Link to="/" className="text-white text-xl font-bold md:text-2xl">
             Bengali-Chitkarian
           </Link>
         </div>
@@ -75,24 +75,16 @@ const Navbar = (props) => {
               </Link>
             </li>
           </ul>
-          <div className="hidden sm:block">
+          <div>
             <Link to="/profile">
               <Avatar
                 variant="circular"
                 size="sm"
                 alt="tania andrew"
-                className="border border-gray-900 p-0.5 rounded-full w-10 h-10"
+                className="border-2 border-gray-900 p-0.5 rounded-full w-10 h-10 "
                 src={props.profileImg}
               />
             </Link>
-          </div>
-          <div
-            onClick={() => {
-              auth.signOut();
-            }}
-            className="logout-btn"
-          >
-            <Button className="p-2 text-sm">LogOut</Button>
           </div>
         </div>
       </div>

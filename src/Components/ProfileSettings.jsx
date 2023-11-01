@@ -30,7 +30,9 @@ function ProfileSettings(props) {
   }, [props.id]);
 
   const deleteUser = () => {
-    db.collection("users")
+    const userConfirmed=window.confirm("Are you sure you want to delete?");
+    if(userConfirmed){
+      db.collection("users")
       .doc(props.id)
       .delete()
       .then(() => {
@@ -43,6 +45,7 @@ function ProfileSettings(props) {
       .catch((error) => {
         console.error("Error removing document: ", error);
       });
+    }
   };
 
   const handleEdit = () => {
@@ -124,11 +127,21 @@ function ProfileSettings(props) {
       <div>
         {userData && !editMode && (
           <div className="flex flex-col gap-y-2 items-center sm:block">
-            <div>
-              <h1 className="text-2xl text-white sm:text-3xl">
+            <div className="flex justify-between w-full p-1 sm:p-0">
+             <div>
+             <h1 className="text-2xl text-white sm:text-3xl">
                 {" "}
                 নমস্কার, {userData.firstName}
               </h1>
+             </div>
+             <div>
+              <Button
+              className="bg-pink-700 px-3 max-w-sm"
+              onClick={handleEdit}
+            >
+              Edit
+            </Button>
+              </div>
             </div>
             <div className="flex flex-col gap-y-1 items-center justify-center text-center">
               <img
@@ -149,27 +162,32 @@ function ProfileSettings(props) {
               </h3>
               <h3 className="text-xl text-white">Course: {userData.course}</h3>
             </div>
-            <Button
-              className="my-5 mx-5 px-2 max-w-sm bg-pink-700"
+            <div className="flex gap-2 flex-col w-full md:flex-row justify-between">
+              <div>
+              <Button
+              className="p-2 max-w-sm bg-pink-700"
               onClick={deleteUser}
             >
-              Delete Your Account
+              Delete My Account
             </Button>
-            <Button
-              className="my-5 mx-5 px-2 max-w-sm bg-blue-700"
-              onClick={handleEdit}
-            >
-              Edit Profile
-            </Button>
+              </div>
+              <div onClick={() => {
+              auth.signOut();
+            }}>
+              <Button className="p-2 max-w-sm bg-blue-700 rounded font-bold">
+                Logout
+              </Button>
+             </div>
+            </div>
           </div>
         )}
 
         {editMode && (
           <div>
-            <div className="flex flex-col gap-y-1 items-center justify-center">
-              <div className="flex gap-x-2 justify-center items-center">
+            <div className="flex flex-col gap-1 items-center justify-center">
+              <div className="flex gap-2 justify-center items-center flex-col">
                 <img
-                  className="rounded-full w-32 h-32"
+                  className="rounded w-28 h-28 sm:rounded-full sm:w-32 sm:h-32"
                   src={
                     imgFile
                       ? URL.createObjectURL(imgFile)
@@ -181,7 +199,7 @@ function ProfileSettings(props) {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setImgFile(e.target.files[0])}
-                  className="bg-white rounded p-2"
+                  className="bg-white rounded p-1 w-4/6 sm:w-5/6"
                 />
               </div>
               <input
