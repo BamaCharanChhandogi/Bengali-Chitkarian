@@ -37,6 +37,8 @@
               <h2 className='text-xl text-white'>email: {userData.email}</h2>
               <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
               <h3 className='text-xl text-white'>District: {userData.district}</h3>
+              <h3 className='text-xl text-white'>Sub District: {userData.subdistrict}</h3>
+              <h3 className='text-xl text-white'>Course: {userData.course}</h3>
             </div>
         ) : (
           <p className='text-3xl my-8 text-center font-bold text-white'>Loading user data...</p>

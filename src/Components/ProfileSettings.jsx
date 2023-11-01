@@ -108,6 +108,9 @@ function ProfileSettings(props) {
     }
   };  
 
+  const handleCancel = () => {
+    setEditMode(false);
+  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedUserData({ ...editedUserData, [name]: value });
@@ -131,6 +134,8 @@ function ProfileSettings(props) {
               <h2 className='text-xl text-white'>email: {userData.email}</h2>
               <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
               <h3 className='text-xl text-white'>District: {userData.district}</h3>
+              <h3 className='text-xl text-white'>Sub District: {userData.subdistrict}</h3>
+              <h3 className='text-xl text-white'>Course: {userData.course}</h3>
             </div>
             <Button className='my-5 mx-5 px-2 max-w-sm bg-pink-700' onClick={deleteUser}>
               Delete Your Account
@@ -167,12 +172,14 @@ function ProfileSettings(props) {
                 type='text'
                 name='lastName'
                 className='p-1 rounded'
+                placeholder='Last Name'
                 value={editedUserData.lastName}
                 onChange={handleInputChange}
               />
               <input
                 type='text'
                 name='email'
+                placeholder='Email'
                 className='p-1 rounded'
                 value={editedUserData.email}
                 onChange={handleInputChange}
@@ -180,6 +187,7 @@ function ProfileSettings(props) {
               <input
                 type='text'
                 name='gender'
+                placeholder='Gender'
                 className='p-1 rounded'
                 value={editedUserData.gender}
                 onChange={handleInputChange}
@@ -187,13 +195,33 @@ function ProfileSettings(props) {
               <input
                 type='text'
                 name='district'
+                placeholder='District'
                 className='p-1 rounded'
                 value={editedUserData.district}
                 onChange={handleInputChange}
               />
+              <input
+                type='text'
+                name='subdistrict'
+                placeholder='Sub District'
+                className='p-1 rounded'
+                value={editedUserData.subdistrict}
+                onChange={handleInputChange}
+              />
+              <input
+                type='text'
+                name='course'
+                placeholder='Course'
+                className='p-1 rounded'
+                value={editedUserData.course}
+                onChange={handleInputChange}
+              />
             </div>
-            <Button className='my-5 mx-5 px-2 bg-green-700' onClick={handleSave}>
+            <Button className='my-2 mx-2 px-2 bg-pink-700' onClick={handleSave}>
               Save Profile
+            </Button>
+            <Button className='my-2 mx-2 px-2 bg-green-700' onClick={handleCancel}>
+              Cancel
             </Button>
           </div>
         )}

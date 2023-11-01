@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import db, { auth, storage } from "../firebase";
 import Login from "./Login";
+import districtSubdistrictMapping from "../District";
+
 function SignUp() {
+  const [step, setStep] = useState(1);
   const [isSignInVisible, setIsSignInVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,18 +12,22 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
   const [district, setDistrict] = useState("");
+  const [subdistrict, setSubdistrict] = useState("");
+  const [course, setCourse] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
 
   const submitSignUp = (e) => {
     e.preventDefault();
+    // Your user registration code here
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         if (authUser) {
-          const profilePictureRef = storage.ref(`profile_pictures/${authUser.user.uid}`);
-          profilePictureRef.put(profilePicture)
-          .then(()=>{
-            profilePictureRef.getDownloadURL().then((url) =>{
+          const profilePictureRef = storage.ref(
+            `profile_pictures/${authUser.user.uid}`
+          );
+          profilePictureRef.put(profilePicture).then(() => {
+            profilePictureRef.getDownloadURL().then((url) => {
               db.collection("users").doc(authUser.user.uid).set({
                 firstName: firstName,
                 lastName: lastName,
@@ -28,19 +35,19 @@ function SignUp() {
                 email: email,
                 profilePicture: url,
                 district: district,
+                subdistrict: subdistrict,
+                course: course,
               });
             });
           });
-          setEmail("");
-          setPassword("");
-          setFirstName("");
-          setLastName("");
-          setGender("");
         }
       })
       .catch((err) => {
         alert(err);
       });
+
+    // Move to the next step when registration is successful
+    setStep(step + 1);
   };
 
   const handleProfilePictureChange = (e) => {
@@ -48,32 +55,76 @@ function SignUp() {
     setProfilePicture(file);
   };
 
-  return (
-    <>
-      {!isSignInVisible ? (
-        <>
-          <div className="flex justify-center w-full align-center">
-            <div className="Card mt-2 w-max">
-              <h1 className="text-3xl font-bold text-center text-blue-gray-800">
-                Sign Up
-              </h1>
-              <p className="text-center text-gray-500 p-1 md:p-0">
-                Nice to meet you! Enter your details to connect with your Bengali friends.
-              </p>
-              <form className="mt-5 mb-2 w-max mx-auto">
-                <div className="flex flex-col gap-6 md:flex-row">
-                  <div className="mb-1 flex flex-col gap-6 w-72">
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Your Name
+  const goToNextStep = () => {
+    setStep(step + 1);
+  };
+
+  const goToPreviousStep = () => {
+    setStep(step - 1);
+  };
+
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return (
+          // First step of registration form
+          <form className="mt-5 mb-2 w-max mx-auto">
+            <div className="mb-1 flex flex-col gap-6 w-72">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                First Name
+              </h2>
+              <input
+                type="text"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                placeholder="First Name"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+             <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                      Last Name
                     </h2>
                     <input
                       type="text"
                       className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      placeholder="First Name"
+                      placeholder="Last Name"
                       required
-                      onChange={(e) => setFirstName(e.target.value)}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Your Email
+              </h2>
+              <input
+                type="email"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                placeholder="name@email.com"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Password
+              </h2>
+              <input
+                type="password"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                placeholder="********"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button
+              className="w-full py-3 my-1 bg-pink-500 text-white rounded-lg hover-bg-pink-600"
+              onClick={goToNextStep}
+            >
+              Next
+            </button>
+          </form>
+        );
+      case 2:
+        return (
+          // Second step of registration form
+          <form className="mt-5 mb-2 w-max mx-auto">
+            <div className="flex flex-col gap-6 w-72">
+            <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your Gender
                     </h2>
                     <select
@@ -86,38 +137,6 @@ function SignUp() {
                       <option value="other">Other</option>
                     </select>
                     <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Your Email
-                    </h2>
-                    <input
-                      type="email"
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      placeholder="name@email.com"
-                      required
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Password
-                    </h2>
-                    <input
-                      type="password"
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      placeholder="********"
-                      required
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-6 w-72">
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Last Name
-                    </h2>
-                    <input
-                      type="text"
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      placeholder="Last Name"
-                      required
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Your State
                     </h2>
                     <input
@@ -126,19 +145,19 @@ function SignUp() {
                       value="West Bengal"
                       readOnly
                     />
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                    <h2 className="text-lg font-semibold text-blue-gray-800">
                       Your District
                     </h2>
                     <select
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-2 mb-1"
                       onChange={(e) => setDistrict(e.target.value)}
                     >
                       <option value="">Select your district</option>
                       <option value="Alipurduar">Alipurduar</option>
                       <option value="Bankura">Bankura</option>
                       <option value="Birbhum">Birbhum</option>
-                      <option value="Cooch Behar">Cooch Behar</option>
-                      <option value="Dakshin Dinajpur">Dakshin Dinajpur</option>
+                      <option value="CoochBehar">Cooch Behar</option>
+                      <option value="DakshinDinajpur">Dakshin Dinajpur</option>
                       <option value="Darjeeling">Darjeeling</option>
                       <option value="Hooghly">Hooghly</option>
                       <option value="Howrah">Howrah</option>
@@ -149,21 +168,79 @@ function SignUp() {
                       <option value="Malda">Malda</option>
                       <option value="Murshidabad">Murshidabad</option>
                       <option value="Nadia">Nadia</option>
-                      <option value="North 24 Parganas">
-                        North 24 Parganas
-                      </option>
-                      <option value="Paschim Bardhaman">
+                      <option value="North24Parganas">North 24 Parganas</option>
+                      <option value="PaschimBardhaman">
                         Paschim Bardhaman
                       </option>
-                      <option value="Purba Bardhaman">Purba Bardhaman</option>
-                      <option value="Purba Medinipur">Purba Medinipur</option>
-                      <option value="Purba Medinipur">Paschim Medinipur</option>
-                      <option value="Purulia">Purulia</option>
-                      <option value="South 24 Parganas">
-                        South 24 Parganas
+                      <option value="PurbaBardhaman">Purba Bardhaman</option>
+                      <option value="PurbaMedinipur">Purba Medinipur</option>
+                      <option value="PaschimMedinipur">
+                        Paschim Medinipur
                       </option>
-                      <option value="Uttar Dinajpur">Uttar Dinajpur</option>
+                      <option value="Purulia">Purulia</option>
+                      <option value="South24Parganas">South 24 Parganas</option>
+                      <option value="UttarDinajpur">Uttar Dinajpur</option>
                       {/* Add more district options here */}
+                    </select>
+                    {district && (
+                      <>
+                        <h2 className="text-lg font-semibold text-blue-gray-800 -my-2">
+                          Your Subdistrict
+                        </h2>
+                        <select
+                          className="w-72 border border-blue-gray-200 p-2 rounded-lg mb-1"
+                          onChange={(e) => setSubdistrict(e.target.value)}
+                        >
+                          <option value="">Select your subdistrict</option>
+                          {districtSubdistrictMapping[district].map(
+                            (subdistrictName) => (
+                              <option
+                                key={subdistrictName}
+                                value={subdistrictName}
+                              >
+                                {subdistrictName}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </>
+                    )}
+                  </div>
+            <div>
+              <button
+                className="w-full py-3 my-1 bg-pink-500 text-white rounded-lg hover-bg-pink-600"
+                onClick={goToNextStep}
+              >
+                Next
+              </button>
+              <button
+                className="w-full py-3 my-1 bg-blue-500 text-white rounded-lg hover-bg-blue-600"
+                onClick={goToPreviousStep}
+              >
+                Previous
+              </button>
+            </div>
+          </form>
+        );
+      case 3:
+        return (
+          // Third step of registration form
+          <form className="mt-5 mb-2 w-max mx-auto">
+           <div className="flex flex-col gap-6 w-72">
+                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                      Select Course
+                    </h2>
+                    <select
+                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                      onChange={(e) => setCourse(e.target.value)}
+                    >
+                      <option value="">Select your course</option>
+                      <option value="CSE">
+                        Computer Science & Engineering
+                      </option>
+                      <option value="CSE-AI">CSE in AI</option>
+                      <option value="B.Pharm">B. Pharm</option>
+                      <option value="Pharm. D">Pharm. D</option>
                     </select>
                     <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                       Profile Picture
@@ -174,44 +251,60 @@ function SignUp() {
                       onChange={handleProfilePictureChange}
                     />
                   </div>
-                </div>
-                <div className="my-3 md:m-0">
-                  <input
-                    type="checkbox"
-                    className="mr-2"
-                    required
-                  />
+                  <div className="my-3 md:mt-20">
+                  <input type="checkbox" className="mr-2" required />
                   <label htmlFor="agreeTerms" className="text-gray-500">
                     I agree to the
-                    <button
-                      className="text-blue-gray-800 hover:text-gray-900 font-semibold"
-                    >
+                    <button className="text-blue-gray-800 hover:text-gray-900 font-semibold">
                       &nbsp;Terms and Conditions
                     </button>
                   </label>
                 </div>
+            <button
+              className="w-full py-3 my-1 bg-pink-500 text-white rounded-lg hover-bg-pink-600"
+              onClick={submitSignUp}
+            >
+              Sign Up
+            </button>
+            <div>
+              <button
+                className="w-full py-3 my-1 bg-blue-500 text-white rounded-lg hover-bg-blue-600"
+                onClick={goToPreviousStep}
+              >
+                Previous
+              </button>
+            </div>
+          </form>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <>
+      {!isSignInVisible ? (
+        <>
+          <div className="flex justify-center w-full align-center">
+            <div className="Card mt-2 w-max">
+              <h1 className="text-3xl font-bold text-center text-blue-gray-800 border-b-2 pb-2 border-pink-600 rounded">
+                Sign Up
+              </h1>
+              {renderStep()}
+              <p className="mt-1 text-center text-gray-500">
+                Already have an account?{" "}
                 <button
-                  className="w-full py-3 m-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
-                  onClick={submitSignUp}
+                  className="text-blue-gray-800 font-semibold cursor-pointer"
+                  onClick={() => setIsSignInVisible(true)}
                 >
-                  Sign Up
+                  Sign In
                 </button>
-                <p className="mt-4 text-center text-gray-500">
-                  Already have an account?{" "}
-                  <button
-                    className="text-blue-gray-800 font-semibold cursor-pointer"
-                    onClick={() => setIsSignInVisible(true)}
-                  >
-                    Sign In
-                  </button>
-                </p>
-              </form>
+              </p>
             </div>
           </div>
         </>
       ) : (
-        // Render your login component here
-        <Login/>
+        <Login />
       )}
     </>
   );

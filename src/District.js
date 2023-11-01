@@ -1,0 +1,60 @@
+const districtSubdistrictMapping = {
+  Alipurduar: [
+    "Alipurduar-I",
+    "Alipurduar-II",
+    "Kalchini",
+    "Falakata",
+    "Kumargram",
+    "Madarihat",
+
+  ],
+  Bankura: ["Bankura-I", "Bankura-II", "Barjora", "Chhatna", "Gangajalghati","Hirbandh","Indpur","Indus","Khatra","Mejhia","Onda","Jaypur","Ranibandh","Saltora","Sarenga","Sonamukhi","Taldangra","Vishnupur","Raipur","Patrasayer"],
+  Birbhum: ["Bolpur", "Suri", "Rampurhat", "Nanoor", "Labpur"],
+  CoochBehar: [
+    "Cooch Behar-I",
+    "Cooch Behar-II",
+    "Dinhata",
+    "Mathabhanga",
+    "Mekliganj",
+  ],
+  DakshinDinajpur: ["Balurghat", "Gangarampur", "Tapan", "Hilli", "Kumarganj"],
+  Darjeeling: [
+    "Darjeeling Pulbazar",
+    "Kurseong",
+    "Kalimpong",
+    "Mirik",
+    "Siliguri",
+  ],
+  Hooghly: ["Chinsurah", "Serampore", "Arambagh", "Dhaniakhali", "Tarakeswar"],
+  Howrah: ["Howrah", "Uluberia", "Sankrail", "Panchla", "Bagnan"],
+  Jalpaiguri: ["Jalpaiguri", "Dabgram", "Malbazar", "Rajganj", "Mainaguri"],
+  Jhargram: ["Jhargram", "Binpur", "Gopiballavpur", "Jamboni", "Sankrail"],
+  Kalimpong: ["Kalimpong", "Gorubathan", "Kurseong", "Mungpoo", "Mirik"],
+  Kolkata: ["Kolkata", "Bidhannagar", "Alambazar", "Kasba", "Jadavpur"],
+  Malda: ["English Bazar", "Old Malda", "Manikchak", "Habibpur", "Gazole"],
+  Murshidabad: ["Baharampur", "Kandi", "Jiaganj-Azimganj", "Domkal", "Lalbag"],
+  Nadia: ["Krishnanagar", "Ranaghat", "Kusumgram", "Chakdaha", "Haringhata"],
+  North24Parganas: ["Barasat", "Bongaon", "Basirhat", "Baduria", "Habra"],
+  PaschimBardhaman: ["Asansol", "Durgapur", "Burdwan", "Kalna", "Guskara"],
+  PurbaBardhaman: ["Bardhaman", "Dainhat", "Katwa", "Kalna", "Guskara"],
+  PurbaMedinipur: ["Tamluk", "Haldia", "Egra", "Contai", "Nandigram"],
+  PaschimMedinipur: [
+    "Midnapore",
+    "Kharagpur",
+    "Jhargram",
+    "Ghatal",
+    "Nayagram",
+  ],
+  Purulia: ["Purulia-I", "Purulia-II", "Jhalda", "Balarampur", "Kashipur"],
+  South24Parganas: [
+    "Alipore",
+    "DiamondHarbour",
+    "BudgeBudge",
+    "Kultali",
+    "Baruipur",
+  ],
+  UttarDinajpur: ["Balurghat", "Gangarampur", "Tapan", "Hilli", "Kumarganj"],
+  // Add more districts and their respective subdistricts here
+};
+
+export default districtSubdistrictMapping;
