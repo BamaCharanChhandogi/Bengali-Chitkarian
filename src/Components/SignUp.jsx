@@ -80,16 +80,16 @@ function SignUp() {
                 required
                 onChange={(e) => setFirstName(e.target.value)}
               />
-             <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Last Name
-                    </h2>
-                    <input
-                      type="text"
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      placeholder="Last Name"
-                      required
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Last Name
+              </h2>
+              <input
+                type="text"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                placeholder="Last Name"
+                required
+                onChange={(e) => setLastName(e.target.value)}
+              />
               <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
                 Your Email
               </h2>
@@ -124,88 +124,81 @@ function SignUp() {
           // Second step of registration form
           <form className="mt-5 mb-2 w-max mx-auto">
             <div className="flex flex-col gap-6 w-72">
-            <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Your Gender
-                    </h2>
-                    <select
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      onChange={(e) => setGender(e.target.value)}
-                    >
-                      <option value="">Select your gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Your State
-                    </h2>
-                    <input
-                      type="text"
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      value="West Bengal"
-                      readOnly
-                    />
-                    <h2 className="text-lg font-semibold text-blue-gray-800">
-                      Your District
-                    </h2>
-                    <select
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-2 mb-1"
-                      onChange={(e) => setDistrict(e.target.value)}
-                    >
-                      <option value="">Select your district</option>
-                      <option value="Alipurduar">Alipurduar</option>
-                      <option value="Bankura">Bankura</option>
-                      <option value="Birbhum">Birbhum</option>
-                      <option value="CoochBehar">Cooch Behar</option>
-                      <option value="DakshinDinajpur">Dakshin Dinajpur</option>
-                      <option value="Darjeeling">Darjeeling</option>
-                      <option value="Hooghly">Hooghly</option>
-                      <option value="Howrah">Howrah</option>
-                      <option value="Jalpaiguri">Jalpaiguri</option>
-                      <option value="Jhargram">Jhargram</option>
-                      <option value="Kalimpong">Kalimpong</option>
-                      <option value="Kolkata">Kolkata</option>
-                      <option value="Malda">Malda</option>
-                      <option value="Murshidabad">Murshidabad</option>
-                      <option value="Nadia">Nadia</option>
-                      <option value="North24Parganas">North 24 Parganas</option>
-                      <option value="PaschimBardhaman">
-                        Paschim Bardhaman
-                      </option>
-                      <option value="PurbaBardhaman">Purba Bardhaman</option>
-                      <option value="PurbaMedinipur">Purba Medinipur</option>
-                      <option value="PaschimMedinipur">
-                        Paschim Medinipur
-                      </option>
-                      <option value="Purulia">Purulia</option>
-                      <option value="South24Parganas">South 24 Parganas</option>
-                      <option value="UttarDinajpur">Uttar Dinajpur</option>
-                      {/* Add more district options here */}
-                    </select>
-                    {district && (
-                      <>
-                        <h2 className="text-lg font-semibold text-blue-gray-800 -my-2">
-                          Your Subdistrict
-                        </h2>
-                        <select
-                          className="w-72 border border-blue-gray-200 p-2 rounded-lg mb-1"
-                          onChange={(e) => setSubdistrict(e.target.value)}
-                        >
-                          <option value="">Select your subdistrict</option>
-                          {districtSubdistrictMapping[district].map(
-                            (subdistrictName) => (
-                              <option
-                                key={subdistrictName}
-                                value={subdistrictName}
-                              >
-                                {subdistrictName}
-                              </option>
-                            )
-                          )}
-                        </select>
-                      </>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Your Gender
+              </h2>
+              <select
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option value="">Select your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Your State
+              </h2>
+              <input
+                type="text"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                value="West Bengal"
+                readOnly
+              />
+              <h2 className="text-lg font-semibold text-blue-gray-800">
+                Your District
+              </h2>
+              <select
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-2 mb-1"
+                onChange={(e) => setDistrict(e.target.value)}
+              >
+                <option value="">Select your district</option>
+                <option value="Alipurduar">Alipurduar</option>
+                <option value="Bankura">Bankura</option>
+                <option value="Birbhum">Birbhum</option>
+                <option value="CoochBehar">Cooch Behar</option>
+                <option value="DakshinDinajpur">Dakshin Dinajpur</option>
+                <option value="Darjeeling">Darjeeling</option>
+                <option value="Hooghly">Hooghly</option>
+                <option value="Howrah">Howrah</option>
+                <option value="Jalpaiguri">Jalpaiguri</option>
+                <option value="Jhargram">Jhargram</option>
+                <option value="Kalimpong">Kalimpong</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Malda">Malda</option>
+                <option value="Murshidabad">Murshidabad</option>
+                <option value="Nadia">Nadia</option>
+                <option value="North24Parganas">North 24 Parganas</option>
+                <option value="PaschimBardhaman">Paschim Bardhaman</option>
+                <option value="PurbaBardhaman">Purba Bardhaman</option>
+                <option value="PurbaMedinipur">Purba Medinipur</option>
+                <option value="PaschimMedinipur">Paschim Medinipur</option>
+                <option value="Purulia">Purulia</option>
+                <option value="South24Parganas">South 24 Parganas</option>
+                <option value="UttarDinajpur">Uttar Dinajpur</option>
+                {/* Add more district options here */}
+              </select>
+              {district && (
+                <>
+                  <h2 className="text-lg font-semibold text-blue-gray-800 -my-2">
+                    Your Subdistrict
+                  </h2>
+                  <select
+                    className="w-72 border border-blue-gray-200 p-2 rounded-lg mb-1"
+                    onChange={(e) => setSubdistrict(e.target.value)}
+                  >
+                    <option value="">Select your subdistrict</option>
+                    {districtSubdistrictMapping[district].map(
+                      (subdistrictName) => (
+                        <option key={subdistrictName} value={subdistrictName}>
+                          {subdistrictName}
+                        </option>
+                      )
                     )}
-                  </div>
+                  </select>
+                </>
+              )}
+            </div>
             <div>
               <button
                 className="w-full py-3 my-1 bg-pink-500 text-white rounded-lg hover-bg-pink-600"
@@ -226,40 +219,38 @@ function SignUp() {
         return (
           // Third step of registration form
           <form className="mt-5 mb-2 w-max mx-auto">
-           <div className="flex flex-col gap-6 w-72">
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Select Course
-                    </h2>
-                    <select
-                      className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                      onChange={(e) => setCourse(e.target.value)}
-                    >
-                      <option value="">Select your course</option>
-                      <option value="CSE">
-                        Computer Science & Engineering
-                      </option>
-                      <option value="CSE-AI">CSE in AI</option>
-                      <option value="B.Pharm">B. Pharm</option>
-                      <option value="Pharm. D">Pharm. D</option>
-                    </select>
-                    <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
-                      Profile Picture
-                    </h2>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleProfilePictureChange}
-                    />
-                  </div>
-                  <div className="my-3 md:mt-20">
-                  <input type="checkbox" className="mr-2" required />
-                  <label htmlFor="agreeTerms" className="text-gray-500">
-                    I agree to the
-                    <button className="text-blue-gray-800 hover:text-gray-900 font-semibold">
-                      &nbsp;Terms and Conditions
-                    </button>
-                  </label>
-                </div>
+            <div className="flex flex-col gap-6 w-72">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Select Course
+              </h2>
+              <select
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                onChange={(e) => setCourse(e.target.value)}
+              >
+                <option value="">Select your course</option>
+                <option value="CSE">Computer Science & Engineering</option>
+                <option value="CSE-AI">CSE in AI</option>
+                <option value="B.Pharm">B. Pharm</option>
+                <option value="Pharm. D">Pharm. D</option>
+              </select>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+                Profile Picture
+              </h2>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePictureChange}
+              />
+            </div>
+            <div className="my-3 md:mt-20">
+              <input type="checkbox" className="mr-2" required />
+              <label htmlFor="agreeTerms" className="text-gray-500">
+                I agree to the
+                <button className="text-blue-gray-800 hover:text-gray-900 font-semibold">
+                  &nbsp;Terms and Conditions
+                </button>
+              </label>
+            </div>
             <button
               className="w-full py-3 my-1 bg-pink-500 text-white rounded-lg hover-bg-pink-600"
               onClick={submitSignUp}
