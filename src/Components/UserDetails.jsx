@@ -41,7 +41,7 @@
               <h3 className='text-xl text-white'>Course: {userData.course}</h3>
             </div>
         ) : (
-          <p className='text-3xl my-8 text-center font-bold text-white'>Loading user data...</p>
+          <p className='text-xl my-8 text-center font-bold text-white'>Loading user data...</p>
         )}
       </div>
     );

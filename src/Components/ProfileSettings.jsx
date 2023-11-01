@@ -7,7 +7,6 @@ function ProfileSettings(props) {
   const [editMode, setEditMode] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
   const [imgFile, setImgFile] = useState(null);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -28,7 +27,9 @@ function ProfileSettings(props) {
     };
     fetchUserData();
   }, [props.id]);
-
+  if(userData === null) {
+    return <p className="text-xl my-8 text-center font-bold">Loading...</p>
+  }
   const deleteUser = () => {
     const userConfirmed=window.confirm("Are you sure you want to delete?");
     if(userConfirmed){
@@ -162,7 +163,7 @@ function ProfileSettings(props) {
               </h3>
               <h3 className="text-xl text-white">Course: {userData.course}</h3>
             </div>
-            <div className="flex gap-2 flex-col w-full md:flex-row justify-between">
+            <div className="flex gap-2  w-full flex-row justify-between">
               <div>
               <Button
               className="p-2 max-w-sm bg-pink-700"
@@ -258,11 +259,11 @@ function ProfileSettings(props) {
                 onChange={handleInputChange}
               />
             </div>
-            <Button className="my-2 mx-2 px-2 bg-pink-700" onClick={handleSave}>
+            <Button className="my-2 mx-2 px-1 bg-pink-700" onClick={handleSave}>
               Save Profile
             </Button>
             <Button
-              className="my-2 mx-2 px-2 bg-green-700"
+              className="my-2 mx-2 px-1 bg-green-700"
               onClick={handleCancel}
             >
               Cancel
