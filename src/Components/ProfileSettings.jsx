@@ -137,7 +137,7 @@ function ProfileSettings(props) {
              </div>
              <div>
               <Button
-              className="bg-pink-700 px-3 max-w-sm"
+              className="bg-pink-700 p-2 max-w-sm"
               onClick={handleEdit}
             >
               Edit
