@@ -31,6 +31,11 @@ function Contact() {
     })
     .then(() => {
       alert('Form submitted successfully');
+      setEmailData({
+        email: '',
+        subject: '',
+        message: '',
+      });
     })
     .catch((error) => {
       console.error('Error submitting the form:', error);
