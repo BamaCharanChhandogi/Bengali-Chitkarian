@@ -186,7 +186,7 @@ function ProfileSettings(props) {
         {editMode && (
           <div>
             <div className="flex flex-col gap-1 items-center justify-center">
-              <div className="flex gap-2 justify-center items-center flex-col">
+              <div className="flex gap-2 justify-center items-center flex-col sm:w-2/6">
                 <img
                   className="rounded w-28 h-28 sm:rounded-full sm:w-32 sm:h-32"
                   src={
@@ -200,7 +200,7 @@ function ProfileSettings(props) {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setImgFile(e.target.files[0])}
-                  className="bg-white rounded p-1 w-4/6 sm:w-5/6"
+                  className="bg-white rounded w-4/6 sm:w-6/6 sm:p-1"
                 />
               </div>
               <input

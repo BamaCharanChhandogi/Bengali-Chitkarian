@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Avatar, Button } from "@material-tailwind/react";
-import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -11,8 +10,8 @@ const Navbar = (props) => {
     <nav className="bg-pink-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div>
-          <Link to="/" className="text-white text-xl font-bold md:text-2xl">
-            Bengali-Chitkarian
+          <Link to="/" className="text-gray-300 text-xl font-bold md:text-2xl">
+            <span className="text-gray-900">Ben</span>gali-<span className="text-gray-900">Chitk</span>arian
           </Link>
         </div>
         <div className="hidden sm:flex items-center">
