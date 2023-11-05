@@ -15,7 +15,7 @@ function ProfileSettings(props) {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              console.log("Document data:", doc.data());
+              // console.log("Document data:", doc.data());
               setUserData(doc.data());
             } else {
               console.log("No such document!");
