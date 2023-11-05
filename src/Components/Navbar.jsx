@@ -157,6 +157,7 @@ const Navbar = (props) => {
                     ? "text-blue-700 font-bold"
                     : "text-black font-normal"
                 }`}
+                onClick={()=>setMobileMenuOpen(false)}
               >
                 Home
               </Link>
@@ -169,6 +170,7 @@ const Navbar = (props) => {
                     ? "text-blue-700 font-bold"
                     : "text-black font-normal"
                 }`}
+                onClick={()=>setMobileMenuOpen(false)}
               >
                 About
               </Link>
@@ -181,6 +183,7 @@ const Navbar = (props) => {
                     ? "text-blue-700 font-bold"
                     : "text-black font-normal"
                 }`}
+                onClick={()=>setMobileMenuOpen(false)}
               >
                 Contact
               </Link>
