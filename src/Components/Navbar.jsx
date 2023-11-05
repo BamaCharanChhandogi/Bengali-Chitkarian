@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import logo from './chitkara-university-logo.png'
 
 const Navbar = (props) => {
   const [query, setQuery] = useState("");
@@ -13,11 +14,13 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="bg-pink-600 p-3">
+    <nav className="bg-pink-600 p-3 py-1">
       <div className="container mx-auto flex justify-between items-center">
-        <div>
-          <Link to="/" className="text-gray-300 text-xl font-bold md:text-2xl">
-            Bengali Chitkarian
+        <div className="">
+          <Link to="/" className="text-black">
+            <img src={logo} alt="" className="w-28 pb-1 border-b-2 rounded border-black" />
+            <p className="font-semibold">Bengali Chitkarian</p>
+
           </Link>
         </div>
         <div className="hidden sm:flex items-center">
