@@ -39,6 +39,8 @@
               <h3 className='text-xl text-white'>District: {userData.district}</h3>
               <h3 className='text-xl text-white'>Sub District: {userData.subdistrict}</h3>
               <h3 className='text-xl text-white'>Course: {userData.course}</h3>
+              <h3 className='text-xl text-white'>Graduation: {userData.graduation}</h3>
+              <h3 className='text-xl text-white'>Year: {userData.year}</h3>
             </div>
         ) : (
           <p className='text-xl my-8 text-center font-bold text-white'>Loading user data...</p>

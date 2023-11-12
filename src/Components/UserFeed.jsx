@@ -15,7 +15,6 @@ function UserFeed(props) {
             id={id}
             profileImg={data.profilePicture}
             firstName={data.firstName}
-            bioUrl={data.district}
           />
         );
       })}

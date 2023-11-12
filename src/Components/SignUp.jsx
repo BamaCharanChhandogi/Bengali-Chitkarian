@@ -14,6 +14,8 @@ function SignUp() {
   const [district, setDistrict] = useState("");
   const [subdistrict, setSubdistrict] = useState("");
   const [course, setCourse] = useState("");
+  const [graduation, setGraduation] = useState("");
+  const [year, setYear] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
 
   const submitSignUp = (e) => {
@@ -37,6 +39,8 @@ function SignUp() {
                 district: district,
                 subdistrict: subdistrict,
                 course: course,
+                graduation: graduation,
+                year: year,
               });
             });
           });
@@ -220,7 +224,7 @@ function SignUp() {
           // Third step of registration form
           <form className="mt-5 mb-2 w-max mx-auto">
             <div className="flex flex-col gap-6 w-72">
-              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-5">
                 Select Course
               </h2>
               <select
@@ -233,7 +237,37 @@ function SignUp() {
                 <option value="B.Pharm">B. Pharm</option>
                 <option value="Pharm. D">Pharm. D</option>
               </select>
-              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+              <div>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
+              Graduation
+              </h2>
+              <select
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                onChange={(e) => setGraduation(e.target.value)}
+              >
+                <option value="">Graduated Or Not</option>
+                <option value="Running">Running</option>
+                <option value="Graduated">Already Graduated</option>
+              </select>
+              </div>
+              <div>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
+                Select Year
+              </h2>
+              <select
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                onChange={(e) => setYear(e.target.value)}
+              >
+                <option value="">Current Year</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+              </select>
+              </div>
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 -mb-4">
                 Profile Picture
               </h2>
               <input
@@ -242,7 +276,7 @@ function SignUp() {
                 onChange={handleProfilePictureChange}
               />
             </div>
-            <div className="my-3 md:mt-20">
+            <div className="my-5 md:mt-10">
               <input type="checkbox" className="mr-2" required />
               <label htmlFor="agreeTerms" className="text-gray-500">
                 I agree to the

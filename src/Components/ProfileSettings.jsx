@@ -153,7 +153,7 @@ function ProfileSettings(props) {
               <h1 className="text-2xl text-white">
                 Name: {userData.firstName} {userData.lastName}
               </h1>
-              <h2 className="text-xl text-white">email: {userData.email}</h2>
+              <h2 className="text-xl text-white">Email: {userData.email}</h2>
               <h3 className="text-xl text-white">Gender: {userData.gender}</h3>
               <h3 className="text-xl text-white">
                 District: {userData.district}
@@ -162,8 +162,10 @@ function ProfileSettings(props) {
                 Sub District: {userData.subdistrict}
               </h3>
               <h3 className="text-xl text-white">Course: {userData.course}</h3>
+              <h3 className="text-xl text-white">Graduation: {userData.graduation}</h3>
+              <h3 className="text-xl text-white">Year: {userData.year}</h3>
             </div>
-            <div className="flex gap-2  w-full flex-row justify-between">
+            <div className="flex gap-2  w-full flex-row justify-between mt-3">
               <div>
               <Button
               className="p-2 max-w-sm bg-pink-700"
@@ -183,7 +185,7 @@ function ProfileSettings(props) {
           </div>
         )}
 
-        {editMode && (
+{editMode && (
           <div>
             <div className="flex flex-col gap-1 items-center justify-center">
               <div className="flex gap-2 justify-center items-center flex-col sm:w-2/6">
@@ -203,63 +205,117 @@ function ProfileSettings(props) {
                   className="bg-white rounded w-4/6 sm:w-6/6 sm:p-1"
                 />
               </div>
-              <input
-                type="text"
-                name="firstName"
-                value={editedUserData.firstName}
-                className="p-1 rounded"
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="lastName"
-                className="p-1 rounded"
-                placeholder="Last Name"
-                value={editedUserData.lastName}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                className="p-1 rounded"
-                value={editedUserData.email}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="gender"
-                placeholder="Gender"
-                className="p-1 rounded"
-                value={editedUserData.gender}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="district"
-                placeholder="District"
-                className="p-1 rounded"
-                value={editedUserData.district}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="subdistrict"
-                placeholder="Sub District"
-                className="p-1 rounded"
-                value={editedUserData.subdistrict}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="course"
-                placeholder="Course"
-                className="p-1 rounded"
-                value={editedUserData.course}
-                onChange={handleInputChange}
-              />
+              <div className="flex flex-col flex-wrap sm:flex-row gap-2 p-2 sm:gap-8 sm:p-5 sm:mx-10">
+                <div className="flex flex-col">
+                  <label htmlFor="firstName" className="text-white p-1">First name:</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={editedUserData.firstName}
+                    className="p-1 rounded"
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="lastName" className="text-white p-1">Last name:</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    className="p-1 rounded"
+                    placeholder="Last Name"
+                    value={editedUserData.lastName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="email" className="text-white p-1">Email:</label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    className="p-1 rounded"
+                    value={editedUserData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="gender" className="text-white p-1">Gender:</label>
+                  <input
+                    type="text"
+                    id="gender"
+                    name="gender"
+                    placeholder="Gender"
+                    className="p-1 rounded"
+                    value={editedUserData.gender}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="district" className="text-white p-1">District:</label>
+                  <input
+                    type="text"
+                    id="district"
+                    name="district"
+                    placeholder="District"
+                    className="p-1 rounded"
+                    value={editedUserData.district}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="subdistrict" className="text-white p-1">Subdistrict:</label>
+                  <input
+                    type="text"
+                    id="subdistrict"
+                    name="subdistrict"
+                    placeholder="Sub District"
+                    className="p-1 rounded"
+                    value={editedUserData.subdistrict}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="course" className="text-white p-1">Course:</label>
+                  <input
+                    type="text"
+                    id="course"
+                    name="course"
+                    placeholder="Course"
+                    className="p-1 rounded"
+                    value={editedUserData.course}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="graduation" className="text-white p-1">Graduation:</label>
+                  <input
+                    type="text"
+                    id="graduation"
+                    name="graduation"
+                    placeholder="Graduation"
+                    className="p-1 rounded"
+                    value={editedUserData.graduation}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="year" className="text-white p-1">Year:</label>
+                  <input
+                    type="text"
+                    id="year"
+                    name="year"
+                    placeholder="Year"
+                    className="p-1 rounded"
+                    value={editedUserData.year}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
             </div>
-            <Button className="my-2 mx-2 px-1 bg-pink-700" onClick={handleSave}>
+            <Button className="my-3 mx-2 px-1 bg-pink-700" onClick={handleSave}>
               Save Profile
             </Button>
             <Button
