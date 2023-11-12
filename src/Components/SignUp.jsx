@@ -6,6 +6,7 @@ import districtSubdistrictMapping from "../District";
 function SignUp() {
   const [step, setStep] = useState(1);
   const [isSignInVisible, setIsSignInVisible] = useState(false);
+  const [checkbox, setCheckBox] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -20,6 +21,27 @@ function SignUp() {
 
   const submitSignUp = (e) => {
     e.preventDefault();
+    // Check if any of the required fields is empty
+    if (
+      !email ||
+      !password ||
+      !firstName ||
+      !lastName ||
+      !gender ||
+      !district ||
+      !subdistrict ||
+      !course ||
+      !graduation ||
+      !year ||
+      !profilePicture
+    ) {
+      alert("Please fill in all the required fields");
+      return;
+    }
+    if(!checkbox){
+      alert("Please accept the terms and conditions");
+      return;
+    }
     // Your user registration code here
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -48,6 +70,7 @@ function SignUp() {
       })
       .catch((err) => {
         alert(err);
+        alert("Please try again");
       });
 
     // Move to the next step when registration is successful
@@ -58,7 +81,9 @@ function SignUp() {
     const file = e.target.files[0];
     setProfilePicture(file);
   };
-
+  const handleCheckBox = (e) => {
+    setCheckBox(!checkbox);
+  };
   const goToNextStep = () => {
     setStep(step + 1);
   };
@@ -82,6 +107,7 @@ function SignUp() {
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 placeholder="First Name"
                 required
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
@@ -92,6 +118,7 @@ function SignUp() {
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 placeholder="Last Name"
                 required
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
               <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
@@ -102,6 +129,7 @@ function SignUp() {
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 placeholder="name@email.com"
                 required
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
@@ -112,6 +140,7 @@ function SignUp() {
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 placeholder="********"
                 required
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -134,13 +163,14 @@ function SignUp() {
               <select
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 onChange={(e) => setGender(e.target.value)}
+                value={gender}
               >
                 <option value="">Select your gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
-              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-2">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mb-4 -mt-4">
                 Your State
               </h2>
               <input
@@ -149,12 +179,13 @@ function SignUp() {
                 value="West Bengal"
                 readOnly
               />
-              <h2 className="text-lg font-semibold text-blue-gray-800">
+              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-3">
                 Your District
               </h2>
               <select
-                className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-2 mb-1"
+                className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-4 mb-1"
                 onChange={(e) => setDistrict(e.target.value)}
+                value={district}
               >
                 <option value="">Select your district</option>
                 <option value="Alipurduar">Alipurduar</option>
@@ -184,12 +215,13 @@ function SignUp() {
               </select>
               {district && (
                 <>
-                  <h2 className="text-lg font-semibold text-blue-gray-800 -my-2">
+                  <h2 className="text-lg font-semibold text-blue-gray-800 -my-2 -mt-4">
                     Your Subdistrict
                   </h2>
                   <select
-                    className="w-72 border border-blue-gray-200 p-2 rounded-lg mb-1"
+                    className="w-72 border border-blue-gray-200 p-2 rounded-lg mb-3 -mt-3"
                     onChange={(e) => setSubdistrict(e.target.value)}
+                    value={subdistrict}
                   >
                     <option value="">Select your subdistrict</option>
                     {districtSubdistrictMapping[district].map(
@@ -230,42 +262,45 @@ function SignUp() {
               <select
                 className="w-72 border border-blue-gray-200 p-2 rounded-lg"
                 onChange={(e) => setCourse(e.target.value)}
+                value={course}
               >
                 <option value="">Select your course</option>
-                <option value="CSE">Computer Science & Engineering</option>
                 <option value="CSE-AI">CSE in AI</option>
+                <option value="CSE">Computer Science & Engineering</option>
                 <option value="B.Pharm">B. Pharm</option>
                 <option value="Pharm. D">Pharm. D</option>
               </select>
               <div>
-              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
-              Graduation
-              </h2>
-              <select
-                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                onChange={(e) => setGraduation(e.target.value)}
-              >
-                <option value="">Graduated Or Not</option>
-                <option value="Running">Running</option>
-                <option value="Graduated">Already Graduated</option>
-              </select>
+                <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
+                  Graduation
+                </h2>
+                <select
+                  className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                  onChange={(e) => setGraduation(e.target.value)}
+                  value={graduation}
+                >
+                  <option value="">Graduated Or Not</option>
+                  <option value="Running">Running</option>
+                  <option value="Graduated">Already Graduated</option>
+                </select>
               </div>
               <div>
-              <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
-                Select Year
-              </h2>
-              <select
-                className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                onChange={(e) => setYear(e.target.value)}
-              >
-                <option value="">Current Year</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-              </select>
+                <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
+                  Current Year
+                </h2>
+                <select
+                  className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                  onChange={(e) => setYear(e.target.value)}
+                  value={year}
+                >
+                  <option value="">Current Year</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                </select>
               </div>
               <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 -mb-4">
                 Profile Picture
@@ -277,7 +312,13 @@ function SignUp() {
               />
             </div>
             <div className="my-5 md:mt-10">
-              <input type="checkbox" className="mr-2" required />
+              <input
+                type="checkbox"
+                className="mr-2"
+                required
+                value={checkbox}
+                onClick={handleCheckBox}
+              />
               <label htmlFor="agreeTerms" className="text-gray-500">
                 I agree to the
                 <button className="text-blue-gray-800 hover:text-gray-900 font-semibold">
