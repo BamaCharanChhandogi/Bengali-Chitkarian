@@ -33,17 +33,17 @@
                 src={userData.profilePicture}
                 alt={userData.firstName}
               />
-              <h1 className='text-2xl text-white'>Name: {userData.firstName} {userData.lastName}</h1>
-              <h2 className='text-xl text-white'>email: {userData.email}</h2>
-              <h3 className='text-xl text-white'>Gender: {userData.gender}</h3>
-              <h3 className='text-xl text-white'>District: {userData.district}</h3>
-              <h3 className='text-xl text-white'>Sub District: {userData.subdistrict}</h3>
-              <h3 className='text-xl text-white'>Course: {userData.course}</h3>
-              <h3 className='text-xl text-white'>Graduation: {userData.graduation}</h3>
-              <h3 className='text-xl text-white'>Year: {userData.year}</h3>
+              <h1 className='text-2xl text-white'>Name : {userData.firstName?userData.firstName:'---'} {userData.lastName}</h1>
+              <h2 className='text-xl text-white'>Email : {userData.email?userData.email:'---'}</h2>
+              <h3 className='text-xl text-white'>Gender : {userData.gender?userData.gender:'---'}</h3>
+              <h3 className='text-xl text-white'>District : {userData.district?userData.district:'---'}</h3>
+              <h3 className='text-xl text-white'>Sub-District : {userData.subdistrict?userData.subdistrict:'---'}</h3>
+              <h3 className='text-xl text-white'>Course : {userData.course?userData.course:'---'}</h3>
+              <h3 className='text-xl text-white'>Graduation : {userData.graduation?userData.graduation:'---'}</h3>
+              <h3 className='text-xl text-white'>Year : {userData.year? userData.year:'---'}</h3>
             </div>
         ) : (
-          <p className='text-xl my-8 text-center font-bold text-white'>Loading user data...</p>
+          <p className='text-xl my-8 text-center font-bold text-white'>Loading user's info...</p>
         )}
       </div>
     );
