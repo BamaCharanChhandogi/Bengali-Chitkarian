@@ -12,7 +12,6 @@ import SearchFeed from "./SearchFeed";
 function Main() {
   const [userFeed, setUserFeed] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
