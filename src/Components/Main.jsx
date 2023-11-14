@@ -10,6 +10,7 @@ import Contact from './Contact';
 
 function Main() {
   const [userFeed,setUserFeed] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -35,7 +36,7 @@ function Main() {
   return (
     <div className='Main'>
       <Router>
-        <Navbar firstName={currentUser?.data.firstName} profileImg={currentUser?.data.profilePicture} />
+        <Navbar firstName={currentUser?.data.firstName} profileImg={currentUser?.data.profilePicture} onSearch={(query) => setSearchQuery(query)}/>
       <Routes>
         <Route path="/" element={<UserFeed data={userFeed}/>}/>
         <Route path="/user/:id" element={<UserDetails/>} />
