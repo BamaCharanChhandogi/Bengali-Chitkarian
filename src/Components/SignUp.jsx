@@ -38,7 +38,7 @@ function SignUp() {
       alert("Please fill in all the required fields");
       return;
     }
-    if(!checkbox){
+    if (!checkbox) {
       alert("Please accept the terms and conditions");
       return;
     }

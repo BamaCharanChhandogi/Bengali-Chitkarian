@@ -5,9 +5,14 @@ function Login() {
   const [isSignUp, setIsSignUpVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [checkbox, setCheckBox] = useState(false);
 
   const login = (e) => {
     e.preventDefault();
+    if (!checkbox) {
+      alert("Please accept the terms and conditions to continue");
+      return;
+    }
     auth
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
@@ -20,7 +25,9 @@ function Login() {
         alert(err);
       });
   };
-
+  const handleCheckBox = () => {
+    setCheckBox(!checkbox);
+  };
   return (
     <>
       {!isSignUp ? (
@@ -43,6 +50,7 @@ function Login() {
                   id="email"
                   className="w-70 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   required
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -58,11 +66,18 @@ function Login() {
                   id="password"
                   className="w-70 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   required
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <label className="block mb-3">
-                <input type="checkbox" className="mr-2" />
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  required
+                  value={checkbox}
+                  onClick={handleCheckBox}
+                />
                 <span className="text-gray font-normal">
                   I agree the{" "}
                   <button className="font-medium text-blue-gray hover:text-gray-900 cursor-pointer">
