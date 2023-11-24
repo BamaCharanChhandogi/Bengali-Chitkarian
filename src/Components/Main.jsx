@@ -30,9 +30,8 @@ function Main() {
 
     // Call fetchUserData when the component mounts
     fetchUserData();
-
-    // No need to return anything here, useEffect doesn't expect a return value
   }, [userFeed]);
+
   const currentUser = userFeed.find((user) => user.id === auth.currentUser.uid);
   return (
     <div className="Main">

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import db, { auth, storage } from "../firebase";
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 function ProfileSettings(props) {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
   const [imgFile, setImgFile] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -26,26 +28,26 @@ function ProfileSettings(props) {
       }
     };
     fetchUserData();
-  }, [props.id]);
-  if(userData === null) {
-    return <p className="text-xl my-8 text-center font-bold">Loading...</p>
+  }, [userData, props.id]);
+  if (userData === null) {
+    return <p className="text-xl my-8 text-center font-bold">Loading...</p>;
   }
   const deleteUser = () => {
-    const userConfirmed=window.confirm("Are you sure you want to delete?");
-    if(userConfirmed){
+    const userConfirmed = window.confirm("Are you sure you want to delete?");
+    if (userConfirmed) {
       db.collection("users")
-      .doc(props.id)
-      .delete()
-      .then(() => {
-        console.log("Document successfully deleted!");
-        auth.signOut();
-        auth.currentUser.delete().then(() => {
-          console.log("User successfully deleted!");
+        .doc(props.id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+          auth.signOut();
+          auth.currentUser.delete().then(() => {
+            console.log("User successfully deleted!");
+          });
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
         });
-      })
-      .catch((error) => {
-        console.error("Error removing document: ", error);
-      });
     }
   };
 
@@ -129,19 +131,19 @@ function ProfileSettings(props) {
         {userData && !editMode && (
           <div className="flex flex-col gap-y-2 items-center sm:block">
             <div className="flex justify-between w-full p-1 sm:p-0">
-             <div>
-             <h1 className="text-2xl text-white sm:text-3xl">
-                {" "}
-                নমস্কার, {userData.firstName}
-              </h1>
-             </div>
-             <div>
-              <Button
-              className="bg-pink-700 p-2 max-w-sm"
-              onClick={handleEdit}
-            >
-              Edit
-            </Button>
+              <div>
+                <h1 className="text-2xl text-white sm:text-3xl">
+                  {" "}
+                  নমস্কার, {userData.firstName}
+                </h1>
+              </div>
+              <div>
+                <Button
+                  className="bg-pink-700 p-2 max-w-sm"
+                  onClick={handleEdit}
+                >
+                  Edit
+                </Button>
               </div>
             </div>
             <div className="flex flex-col gap-y-1 items-center justify-center text-center">
@@ -162,30 +164,35 @@ function ProfileSettings(props) {
                 Sub District: {userData.subdistrict}
               </h3>
               <h3 className="text-xl text-white">Course: {userData.course}</h3>
-              <h3 className="text-xl text-white">Graduation: {userData.graduation}</h3>
+              <h3 className="text-xl text-white">
+                Graduation: {userData.graduation}
+              </h3>
               <h3 className="text-xl text-white">Year: {userData.year}</h3>
             </div>
             <div className="flex gap-2  w-full flex-row justify-between mt-3">
               <div>
-              <Button
-              className="p-2 max-w-sm bg-pink-700"
-              onClick={deleteUser}
-            >
-              Delete My Account
-            </Button>
+                <Button
+                  className="p-2 max-w-sm bg-pink-700"
+                  onClick={deleteUser}
+                >
+                  Delete My Account
+                </Button>
               </div>
-              <div onClick={() => {
-              auth.signOut();
-            }}>
-              <Button className="p-2 max-w-sm bg-blue-700 rounded font-bold">
-                Logout
-              </Button>
-             </div>
+              <div
+                onClick={() => {
+                  navigate("/");
+                  auth.signOut();
+                }}
+              >
+                <Button className="p-2 max-w-sm bg-blue-700 rounded font-bold">
+                  Logout
+                </Button>
+              </div>
             </div>
           </div>
         )}
 
-{editMode && (
+        {editMode && (
           <div>
             <div className="flex flex-col gap-1 items-center justify-center">
               <div className="flex gap-2 justify-center items-center flex-col sm:w-2/6">
@@ -207,7 +214,9 @@ function ProfileSettings(props) {
               </div>
               <div className="flex flex-col flex-wrap sm:flex-row gap-2 p-2 sm:gap-8 sm:p-5 sm:mx-10">
                 <div className="flex flex-col">
-                  <label htmlFor="firstName" className="text-white p-1">First name:</label>
+                  <label htmlFor="firstName" className="text-white p-1">
+                    First name:
+                  </label>
                   <input
                     type="text"
                     id="firstName"
@@ -218,7 +227,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="lastName" className="text-white p-1">Last name:</label>
+                  <label htmlFor="lastName" className="text-white p-1">
+                    Last name:
+                  </label>
                   <input
                     type="text"
                     id="lastName"
@@ -230,7 +241,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="email" className="text-white p-1">Email:</label>
+                  <label htmlFor="email" className="text-white p-1">
+                    Email:
+                  </label>
                   <input
                     type="text"
                     id="email"
@@ -242,7 +255,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="gender" className="text-white p-1">Gender:</label>
+                  <label htmlFor="gender" className="text-white p-1">
+                    Gender:
+                  </label>
                   <input
                     type="text"
                     id="gender"
@@ -254,7 +269,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="district" className="text-white p-1">District:</label>
+                  <label htmlFor="district" className="text-white p-1">
+                    District:
+                  </label>
                   <input
                     type="text"
                     id="district"
@@ -266,7 +283,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="subdistrict" className="text-white p-1">Subdistrict:</label>
+                  <label htmlFor="subdistrict" className="text-white p-1">
+                    Subdistrict:
+                  </label>
                   <input
                     type="text"
                     id="subdistrict"
@@ -278,7 +297,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="course" className="text-white p-1">Course:</label>
+                  <label htmlFor="course" className="text-white p-1">
+                    Course:
+                  </label>
                   <input
                     type="text"
                     id="course"
@@ -290,7 +311,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="graduation" className="text-white p-1">Graduation:</label>
+                  <label htmlFor="graduation" className="text-white p-1">
+                    Graduation:
+                  </label>
                   <input
                     type="text"
                     id="graduation"
@@ -302,7 +325,9 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="year" className="text-white p-1">Year:</label>
+                  <label htmlFor="year" className="text-white p-1">
+                    Year:
+                  </label>
                   <input
                     type="text"
                     id="year"

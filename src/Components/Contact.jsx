@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import  { Rdb } from '../firebase';
+import React, { useState } from "react";
+import { Rdb } from "../firebase";
 
 function Contact() {
   const [emailData, setEmailData] = useState({
-    email: '',
-    subject: '',
-    message: '',
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const handleInputChange = (e) => {
@@ -20,37 +20,48 @@ function Contact() {
     e.preventDefault();
 
     // Get a reference to the 'formSubmissions' node in the Realtime Database
-    const submissionsRef = Rdb.ref('formSubmissions');
+    const submissionsRef = Rdb.ref("formSubmissions");
 
     // Push the form data to the Realtime Database
     const newSubmissionRef = submissionsRef.push();
-    newSubmissionRef.set({
-      email: emailData.email,
-      subject: emailData.subject,
-      message: emailData.message,
-    })
-    .then(() => {
-      alert('Form submitted successfully');
-      setEmailData({
-        email: '',
-        subject: '',
-        message: '',
+    newSubmissionRef
+      .set({
+        email: emailData.email,
+        subject: emailData.subject,
+        message: emailData.message,
+      })
+      .then(() => {
+        alert("Form submitted successfully");
+        setEmailData({
+          email: "",
+          subject: "",
+          message: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error submitting the form:", error);
+        alert("Form submission failed");
       });
-    })
-    .catch((error) => {
-      console.error('Error submitting the form:', error);
-      alert('Form submission failed');
-    });
   };
 
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h2>
-        <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+          Contact Us
+        </h2>
+        <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
+          Got a technical issue? Want to send feedback about a beta feature?
+          Need details about our Business plan? Let us know.
+        </p>
         <form onSubmit={handleFormSubmit} className="space-y-8">
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              Your email
+            </label>
             <input
               type="email"
               id="email"
@@ -63,7 +74,12 @@ function Contact() {
             />
           </div>
           <div>
-            <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subject</label>
+            <label
+              htmlFor="subject"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              Subject
+            </label>
             <input
               type="text"
               id="subject"
@@ -76,7 +92,12 @@ function Contact() {
             />
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
+            <label
+              htmlFor="message"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+            >
+              Your message
+            </label>
             <textarea
               id="message"
               name="message"

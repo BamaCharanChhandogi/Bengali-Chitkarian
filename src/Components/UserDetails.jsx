@@ -1,52 +1,71 @@
-  import React, { useState, useEffect } from 'react';
-  import { useParams } from 'react-router-dom';
-  import db from '../firebase';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import db from "../firebase";
 
-  function UserDetails() {
-    const { id } = useParams();
-    const [userData, setUserData] = useState(null);
-    useEffect(() => {
-      // Fetch user data when the component mounts
-      db.collection('users')
-        .doc(id)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            // Data exists, update the state
-            setUserData(doc.data());
-          } else {
-            // Handle the case where the document doesn't exist
-            console.log('User not found');
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching user data:', error);
-        });
-    }, [id]);
+function UserDetails() {
+  const { id } = useParams();
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    db.collection("users")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // Data exists, update the state
+          setUserData(doc.data());
+        } else {
+          // Handle the case where the document doesn't exist
+          console.log("User not found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [id]);
 
-    return (
-      <div className='mx-2 my-2 bg-gray-900 p-4 md:p-8 lg:p-6 rounded'>
-        {userData ? (
-          <div className='flex flex-col gap-y-1 items-center justify-center'>
-              <img
-                className='rounded-full w-32 h-32'
-                src={userData.profilePicture}
-                alt={userData.firstName}
-              />
-              <h1 className='text-2xl text-white'>Name : {userData.firstName?userData.firstName:'---'} {userData.lastName}</h1>
-              <h2 className='text-xl text-white'>Email : {userData.email?userData.email:'---'}</h2>
-              <h3 className='text-xl text-white'>Gender : {userData.gender?userData.gender:'---'}</h3>
-              <h3 className='text-xl text-white'>District : {userData.district?userData.district:'---'}</h3>
-              <h3 className='text-xl text-white'>Sub-District : {userData.subdistrict?userData.subdistrict:'---'}</h3>
-              <h3 className='text-xl text-white'>Course : {userData.course?userData.course:'---'}</h3>
-              <h3 className='text-xl text-white'>Graduation : {userData.graduation?userData.graduation:'---'}</h3>
-              <h3 className='text-xl text-white'>Year : {userData.year? userData.year:'---'}</h3>
-            </div>
-        ) : (
-          <p className='text-xl my-8 text-center font-bold text-white'>Loading user's info...</p>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="mx-2 my-2 bg-gray-900 p-4 md:p-8 lg:p-6 rounded">
+      {userData ? (
+        <div className="flex flex-col gap-y-1 items-center justify-center">
+          <img
+            className="rounded-full w-32 h-32"
+            src={userData.profilePicture}
+            alt={userData.firstName}
+          />
+          <h1 className="text-2xl text-white">
+            Name : {userData.firstName ? userData.firstName : "---"}{" "}
+            {userData.lastName}
+          </h1>
+          <h2 className="text-xl text-white">
+            Email : {userData.email ? userData.email : "---"}
+          </h2>
+          <h3 className="text-xl text-white">
+            Gender : {userData.gender ? userData.gender : "---"}
+          </h3>
+          <h3 className="text-xl text-white">
+            District : {userData.district ? userData.district : "---"}
+          </h3>
+          <h3 className="text-xl text-white">
+            Sub-District : {userData.subdistrict ? userData.subdistrict : "---"}
+          </h3>
+          <h3 className="text-xl text-white">
+            Course : {userData.course ? userData.course : "---"}
+          </h3>
+          <h3 className="text-xl text-white">
+            Graduation : {userData.graduation ? userData.graduation : "---"}
+          </h3>
+          <h3 className="text-xl text-white">
+            Year : {userData.year ? userData.year : "---"}
+          </h3>
+        </div>
+      ) : (
+        <p className="text-xl my-8 text-center font-bold text-white">
+          Loading user's info...
+        </p>
+      )}
+    </div>
+  );
+}
 
-  export default UserDetails;
+export default UserDetails;

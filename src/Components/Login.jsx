@@ -9,8 +9,8 @@ function Login() {
 
   const login = (e) => {
     e.preventDefault();
-    if (!checkbox) {
-      alert("Please accept the terms and conditions to continue");
+    if(!checkbox){
+      alert("Please accept the terms and conditions to continue")
       return;
     }
     auth
