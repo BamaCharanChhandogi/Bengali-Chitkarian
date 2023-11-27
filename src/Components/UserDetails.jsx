@@ -50,13 +50,10 @@ function UserDetails() {
             Sub-District : {userData.subdistrict ? userData.subdistrict : "---"}
           </h3>
           <h3 className="text-xl text-white">
-            Course : {userData.course ? userData.course : "---"}
+            Course: {userData.course} | {userData.specialization}
           </h3>
           <h3 className="text-xl text-white">
-            Graduation : {userData.graduation ? userData.graduation : "---"}
-          </h3>
-          <h3 className="text-xl text-white">
-            Year : {userData.year ? userData.year : "---"}
+            Year: {userData.startYear}-{userData.endYear}
           </h3>
         </div>
       ) : (
