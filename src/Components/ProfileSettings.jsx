@@ -163,11 +163,12 @@ function ProfileSettings(props) {
               <h3 className="text-xl text-white">
                 Sub District: {userData.subdistrict}
               </h3>
-              <h3 className="text-xl text-white">Course: {userData.course}</h3>
               <h3 className="text-xl text-white">
-                Graduation: {userData.graduation}
+                Course: {userData.course} | {userData.specialization}
               </h3>
-              <h3 className="text-xl text-white">Year: {userData.year}</h3>
+              <h3 className="text-xl text-white">
+                Year: {userData.startYear}-{userData.endYear}
+              </h3>
             </div>
             <div className="flex gap-2  w-full flex-row justify-between mt-3">
               <div>
@@ -311,30 +312,44 @@ function ProfileSettings(props) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="graduation" className="text-white p-1">
-                    Graduation:
+                  <label htmlFor="course" className="text-white p-1">
+                    Specialization:
                   </label>
                   <input
                     type="text"
-                    id="graduation"
-                    name="graduation"
-                    placeholder="Graduation"
+                    id="specialization"
+                    name="specialization"
+                    placeholder="specialization"
                     className="p-1 rounded"
-                    value={editedUserData.graduation}
+                    value={editedUserData.specialization}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="year" className="text-white p-1">
-                    Year:
+                  <label htmlFor="startYear" className="text-white p-1">
+                    Start-Year:
                   </label>
                   <input
                     type="text"
-                    id="year"
+                    id="startYear"
                     name="year"
-                    placeholder="Year"
+                    placeholder="start"
                     className="p-1 rounded"
-                    value={editedUserData.year}
+                    value={editedUserData.startYear}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="endYear" className="text-white p-1">
+                    End-Year:
+                  </label>
+                  <input
+                    type="text"
+                    id="endYear"
+                    name="year"
+                    placeholder="end"
+                    className="p-1 rounded"
+                    value={editedUserData.endYear}
                     onChange={handleInputChange}
                   />
                 </div>

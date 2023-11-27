@@ -3,6 +3,98 @@ import db, { auth, storage } from "../firebase";
 import Login from "./Login";
 import districtSubdistrictMapping from "../District";
 
+const getSpecializations = (selectedCourse) => {
+  switch (selectedCourse) {
+    case "B.Com":
+      return [
+        "Accounting",
+        "Finance",
+        "Marketing",
+        "Human Resource Management",
+        "Banking and Insurance",
+        "International Business",
+      ];
+    case "B.Tech/B.E":
+      return [
+        "CSE",
+        "CSE in AI",
+        "EE",
+        "ME",
+        "Civil Engineering",
+        "ECE",
+        "Information Technology",
+      ];
+    case "B.Sc":
+      return [
+        "Physics",
+        "Chemistry",
+        "Mathematics",
+        "Biology",
+        "Computer Science",
+        "Environmental Science",
+      ];
+    case "Diploma":
+      return [
+        "Mechanical Engineering",
+        "Civil Engineering",
+        "Electrical Engineering",
+        "Computer Science",
+        "Electronics and Communication",
+      ];
+    case "B.Arch":
+      return [
+        "Architectural Design",
+        "Urban Design",
+        "Landscape Architecture",
+        "Interior Design",
+      ];
+    case "B.B.A/B.M.S":
+      return [
+        "Marketing",
+        "Finance",
+        "Human Resource Management",
+        "Operations Management",
+        "Entrepreneurship",
+      ];
+    case "B.Ed":
+      return [
+        "Elementary Education",
+        "Secondary Education",
+        "Special Education",
+      ];
+    case "B.Pharm":
+      return [
+        "Pharmaceutical Chemistry",
+        "Pharmaceutics",
+        "Pharmacology",
+        "Pharmacognosy",
+      ];
+    case "BCA":
+      return [
+        "Software Development",
+        "Network Administration",
+        "Web Development",
+        "Database Management",
+      ];
+    case "Pharm.D":
+      return [
+        "Clinical Pharmacy",
+        "Hospital Pharmacy",
+        "Pharmaceutical Care",
+        "Pharmacotherapy",
+      ];
+    case "B.A":
+      return [
+        "English Literature",
+        "History",
+        "Sociology",
+        "Political Science",
+        "Psychology",
+      ];
+    default:
+      return [];
+  }
+};
 function SignUp() {
   const [step, setStep] = useState(1);
   const [isSignInVisible, setIsSignInVisible] = useState(false);
@@ -15,8 +107,9 @@ function SignUp() {
   const [district, setDistrict] = useState("");
   const [subdistrict, setSubdistrict] = useState("");
   const [course, setCourse] = useState("");
-  const [graduation, setGraduation] = useState("");
-  const [year, setYear] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endYear, setEndYear] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
 
   const submitSignUp = (e) => {
@@ -31,8 +124,9 @@ function SignUp() {
       !district ||
       !subdistrict ||
       !course ||
-      !graduation ||
-      !year ||
+      !specialization ||
+      !startYear ||
+      !endYear ||
       !profilePicture
     ) {
       alert("Please fill in all the required fields");
@@ -61,8 +155,9 @@ function SignUp() {
                 district: district,
                 subdistrict: subdistrict,
                 course: course,
-                graduation: graduation,
-                year: year,
+                specialization: specialization,
+                startYear: startYear,
+                endYear: endYear,
               });
             });
           });
@@ -265,42 +360,80 @@ function SignUp() {
                 value={course}
               >
                 <option value="">Select your course</option>
-                <option value="CSE-AI">CSE in AI</option>
-                <option value="CSE">Computer Science & Engineering</option>
-                <option value="B.Pharm">B. Pharm</option>
-                <option value="Pharm. D">Pharm. D</option>
+                <option value="B.Com">B.Com</option>
+                <option value="B.Tech/B.E">B.Tech/B.E</option>
+                <option value="B.Sc">B.Sc</option>
+                <option value="Diploma">Diploma</option>
+                <option value="B.Arch">B.Arch</option>
+                <option value="B.B.A/B.M.S">B.B.A/B.M.S</option>
+                <option value="B.Ed">B.Ed</option>
+                <option value="B.Pharm">B.Pharm</option>
+                <option value="BCA">BCA</option>
+                <option value="Pharm.D">Pharm.D</option>
+                <option value="B.A">B.A</option>
               </select>
+
+              {course && (
+                <>
+                  <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 ">
+                    Select Specialization
+                  </h2>
+                  <select
+                    className="w-72 border border-blue-gray-200 p-2 rounded-lg -mt-4"
+                    onChange={(e) => setSpecialization(e.target.value)}
+                    value={specialization}
+                  >
+                    <option value="">Select your specialization</option>
+                    {/* Add specialization options based on the selected course */}
+                    {getSpecializations(course).map((specialization) => (
+                      <option key={specialization} value={specialization}>
+                        {specialization}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
+
               <div>
                 <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
-                  Graduation
+                  Course Duration
                 </h2>
-                <select
-                  className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                  onChange={(e) => setGraduation(e.target.value)}
-                  value={graduation}
-                >
-                  <option value="">Graduated Or Not</option>
-                  <option value="Running">Running</option>
-                  <option value="Graduated">Already Graduated</option>
-                </select>
-              </div>
-              <div>
-                <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 mb-2">
-                  Current Year
-                </h2>
-                <select
-                  className="w-72 border border-blue-gray-200 p-2 rounded-lg"
-                  onChange={(e) => setYear(e.target.value)}
-                  value={year}
-                >
-                  <option value="">Current Year</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
-                </select>
+                <div className="flex items-center">
+                  <select
+                    className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                    onChange={(e) => setStartYear(e.target.value)}
+                    value={startYear}
+                  >
+                    <option value="">Start</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                  </select>
+                  <span className="ml-2 mr-2 text-lg">To</span>
+                  <select
+                    className="w-72 border border-blue-gray-200 p-2 rounded-lg"
+                    onChange={(e) => setEndYear(e.target.value)}
+                    value={endYear}
+                  >
+                    <option value="">End</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                  </select>
+                </div>
               </div>
               <h2 className="text-lg font-semibold text-blue-gray-800 -mt-4 -mb-4">
                 Profile Picture
