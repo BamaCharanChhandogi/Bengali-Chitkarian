@@ -70,6 +70,21 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <label className="block mb-3">
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  required
+                  value={checkbox}
+                  onClick={handleCheckBox}
+                />
+                <span className="text-gray font-normal">
+                  I agree the{" "}
+                  <button className="font-medium text-blue-gray hover:text-gray-900 cursor-pointer">
+                    Terms and Conditions
+                  </button>
+                </span>
+              </label>
               <button
                 className="w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600"
                 onClick={login}
