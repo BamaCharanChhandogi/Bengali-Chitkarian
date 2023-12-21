@@ -48,7 +48,7 @@ function Login() {
                 <input
                   type="email"
                   id="email"
-                  className="w-70 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-80 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -64,7 +64,7 @@ function Login() {
                 <input
                   type="password"
                   id="password"
-                  className="w-70 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-80 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
