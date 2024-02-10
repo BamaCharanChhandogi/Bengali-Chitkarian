@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import Login from "./Components/Login";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/counter/userSlice";
+import { useDispatch } from "react-redux";
+import { login, logout } from "./features/counter/userSlice";
 import Main from "./Components/Main";
 import { auth } from "./firebase";
 
 function App() {
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
@@ -24,9 +22,6 @@ function App() {
       }
     });
   }, [dispatch]);
-  if (!user) {
-    return <Login />;
-  }
   return (
     <div className="App">
       <Main />

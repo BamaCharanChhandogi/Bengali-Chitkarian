@@ -3,11 +3,13 @@ import { Avatar } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import logo from "./chitkara-university-logo.png";
-
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/counter/userSlice";
 const Navbar = (props) => {
   const [query, setQuery] = useState("");
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const user = useSelector(selectUser);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -104,22 +106,37 @@ const Navbar = (props) => {
                 Contact
               </Link>
             </li>
+            <li>
+              {!user && (
+                <Link
+                  to="/Login"
+                  className={`text-xl border-2 p-1 rounded-md  border-slate-900 font-bold ${
+                    location.pathname === "/Login" ? "text-black" : "text-white"
+                  }`}
+                >
+                  Login
+                </Link>
+              )}
+            </li>
           </ul>
-          <div className="pl-2">
-            <Link to="/profile">
-              <Avatar
-                variant="circular"
-                size="sm"
-                alt="tania andrew"
-                className="border-2 border-gray-900 p-0.5 rounded-full w-10 h-10"
-                src={props.profileImg}
-              />
-            </Link>
-          </div>
+          {user && (
+            <div className="pl-2">
+              <Link to="/profile">
+                <Avatar
+                  variant="circular"
+                  size="sm"
+                  alt="tania andrew"
+                  className="border-2 border-gray-900 p-0.5 rounded-full w-10 h-10"
+                  src={props.profileImg}
+                />
+              </Link>
+            </div>
+          )}
         </div>
         <div className="flex items-center md:hidden">
           <div className="pl-2">
-            <Link to="/profile">
+            {
+              user && (<Link to="/profile">
               <Avatar
                 variant="circular"
                 size="sm"
@@ -127,8 +144,20 @@ const Navbar = (props) => {
                 className="border-2 border-gray-900 p-0.5 rounded-full w-10 h-10"
                 src={props.profileImg}
               />
-            </Link>
+            </Link>)
+            }
+            {!user && (
+                <Link
+                  to="/Login"
+                  className={`text-xl border-2 p-2 rounded-md  border-slate-900 font-bold ${
+                    location.pathname === "/Login" ? "text-black" : "text-white"
+                  }`}
+                >
+                  Login
+                </Link>
+              )}
           </div>
+
           <div>
             {/* Mobile Menu Button */}
             <button className="block p-2 text-white" onClick={toggleMobileMenu}>

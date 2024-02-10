@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import db, { auth, storage } from "../firebase";
-import Login from "./Login";
 import districtSubdistrictMapping from "../District";
+import { useNavigate } from "react-router-dom";
 
 const getSpecializations = (selectedCourse) => {
   switch (selectedCourse) {
@@ -97,7 +97,6 @@ const getSpecializations = (selectedCourse) => {
 };
 function SignUp() {
   const [step, setStep] = useState(1);
-  const [isSignInVisible, setIsSignInVisible] = useState(false);
   const [checkbox, setCheckBox] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -112,6 +111,7 @@ function SignUp() {
   const [endYear, setEndYear] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
 
+  const navigate = useNavigate();
   const submitSignUp = (e) => {
     e.preventDefault();
     // Check if any of the required fields is empty
@@ -162,6 +162,7 @@ function SignUp() {
             });
           });
         }
+        navigate("/");
       })
       .catch((err) => {
         alert(err);
@@ -482,9 +483,7 @@ function SignUp() {
 
   return (
     <>
-      {!isSignInVisible ? (
-        <>
-          <div className="flex justify-center w-full align-center">
+     <div className="flex justify-center w-full align-center min-h-screen">
             <div className="Card mt-2 w-max">
               <h1 className="text-3xl font-bold text-center text-blue-gray-800 border-b-2 pb-2 border-pink-600 rounded">
                 Sign Up
@@ -494,17 +493,13 @@ function SignUp() {
                 Already have an account?{" "}
                 <button
                   className="text-blue-gray-800 font-semibold cursor-pointer"
-                  onClick={() => setIsSignInVisible(true)}
+                  onClick={() => navigate("/Login")}
                 >
                   Sign In
                 </button>
               </p>
             </div>
           </div>
-        </>
-      ) : (
-        <Login />
-      )}
     </>
   );
 }

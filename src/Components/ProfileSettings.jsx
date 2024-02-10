@@ -27,6 +27,7 @@ function ProfileSettings(props) {
         console.error("Error fetching user data:", error);
       }
     };
+    console.log("props.id", props.id);
     fetchUserData();
   }, [userData, props.id]);
   if (userData === null) {
@@ -44,6 +45,7 @@ function ProfileSettings(props) {
           auth.currentUser.delete().then(() => {
             console.log("User successfully deleted!");
           });
+          navigate("/");
         })
         .catch((error) => {
           console.error("Error removing document: ", error);
@@ -181,7 +183,7 @@ function ProfileSettings(props) {
               </div>
               <div
                 onClick={() => {
-                  navigate("/");
+                  navigate("/Login");
                   auth.signOut();
                 }}
               >

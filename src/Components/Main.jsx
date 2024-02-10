@@ -8,10 +8,15 @@ import ProfileSettings from "./ProfileSettings";
 import About from "./About";
 import Contact from "./Contact";
 import SearchFeed from "./SearchFeed";
+import Login from "./Login";
+import { useSelector } from "react-redux";
+import {  selectUser } from "../features/counter/userSlice";
+import SignUp from "./SignUp";
 
 function Main() {
   const [userFeed, setUserFeed] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const user = useSelector(selectUser);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -31,31 +36,26 @@ function Main() {
     // Call fetchUserData when the component mounts
     fetchUserData();
   }, [userFeed]);
-
-  const currentUser = userFeed.find((user) => user.id === auth.currentUser.uid);
+  let currentUser;
+  user&&  (currentUser = userFeed.find((user) => user.id   === auth.currentUser.uid))
   return (
     <div className="Main">
-      <Router>
-        <Navbar
-          firstName={currentUser?.data.firstName}
-          profileImg={currentUser?.data.profilePicture}
-          onSearch={(query) => setSearchQuery(query)}
-        />
-        <Routes>
-          <Route path="/" element={<UserFeed data={userFeed} />} />
-          <Route
-            path="/search"
-            element={<SearchFeed data={userFeed} searchQuery={searchQuery} />}
-          />
-          <Route path="/user/:id" element={<UserDetails />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/profile"
-            element={<ProfileSettings id={auth.currentUser.uid} />}
-          />
-        </Routes>
-      </Router>
+      {/* No need for Router here */}
+      <Navbar
+        firstName={currentUser?.data.firstName}
+        profileImg={currentUser?.data.profilePicture}
+        onSearch={(query) => setSearchQuery(query)}
+      />
+      <Routes>
+        <Route path="/" element={<UserFeed data={userFeed} />} />
+        <Route path="/search" element={<SearchFeed data={userFeed} searchQuery={searchQuery} />} />
+        <Route path="/user/:id" element={<UserDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/Login" element={<Login />} />
+        <Route  path="/SignUp" element={<SignUp />} />
+        <Route path="/profile" element={<ProfileSettings  id={user && auth.currentUser.uid} />} />
+      </Routes>
     </div>
   );
 }
